@@ -57,8 +57,7 @@ const Hero = () => {
             className="hero-mask is-1st"
           >
             <div 
-              data-poster-url="./assets/67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-poster-00001.jpg" 
-              data-video-urls="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.mp4,https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.webm"
+              data-video-urls="./assets/videos/hero video.mov"
               data-autoplay="true" 
               data-loop="true" 
               className="hero-bg-video w-background-video w-background-video-atom"
@@ -68,11 +67,10 @@ const Hero = () => {
                 loop 
                 muted 
                 playsInline 
-                style={{backgroundImage: 'url("./assets/67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-poster-00001.jpg")'}}
+                style={{}}
                 data-object-fit="cover"
               >
-                <source src="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.mp4" />
-                <source src="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.webm" />
+                <source src="./assets/videos/hero video.mov" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -82,8 +80,7 @@ const Hero = () => {
             className="hero-mask is-2nd"
           >
             <div 
-              data-poster-url="./assets/67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-poster-00001.jpg" 
-              data-video-urls="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.mp4,https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.webm"
+              data-video-urls="./assets/videos/hero video.mov"
               data-autoplay="true" 
               data-loop="true" 
               className="hero-bg-video is-2 w-node-e92ba675-dd4a-f58c-a760-beedcb871fc8-386a10f1 w-background-video w-background-video-atom"
@@ -93,11 +90,10 @@ const Hero = () => {
                 loop 
                 muted 
                 playsInline 
-                style={{backgroundImage: 'url("./assets/67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-poster-00001.jpg")'}}
+                style={{}}
                 data-object-fit="cover"
               >
-                <source src="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.mp4" />
-                <source src="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.webm" />
+                <source src="./assets/videos/hero video.mov" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -107,8 +103,7 @@ const Hero = () => {
             className="hero-mask is-3rd"
           >
             <div 
-              data-poster-url="./assets/67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-poster-00001.jpg" 
-              data-video-urls="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.mp4,https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.webm"
+              data-video-urls="./assets/videos/hero video.mov"
               data-autoplay="true" 
               data-loop="true" 
               className="hero-bg-video is-3 w-node-_54226774-b13f-322b-2cc2-5133f5d2f2a8-386a10f1 w-background-video w-background-video-atom"
@@ -118,11 +113,102 @@ const Hero = () => {
                 loop 
                 muted 
                 playsInline 
-                style={{backgroundImage: 'url("./assets/67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-poster-00001.jpg")'}}
+                style={{}}
                 data-object-fit="cover"
               >
-                <source src="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.mp4" />
-                <source src="https://cdn.prod.website-files.com/673266e1c5d7db0952b1cd54%2F67d1b1a391cf1f032ef188db_946e2d6d-54a69664_2-transcode.webm" />
+                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
+          <div 
+            style={{clipPath: 'polygon(0% 0%, 17% 0%, 22% 100%, 28% 100%, 26% 0%, 46% 0%, 55% 100%, 60% 100%, 60% 0%, 100% 0%, 100% 100%, 1% 100%)'}} 
+            className="hero-mask is-4th"
+          >
+            <div 
+              data-video-urls="./assets/videos/hero video.mov"
+              data-autoplay="true" 
+              data-loop="true" 
+              className="hero-bg-video is-4 w-node-_54226774-b13f-322b-2cc2-5133f5d2f2a8-386a10f1 w-background-video w-background-video-atom"
+            >
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                style={{}}
+                data-object-fit="cover"
+              >
+                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
+          <div 
+            style={{clipPath: 'polygon(0% 0%, 17% 0%, 22% 100%, 28% 100%, 26% 0%, 46% 0%, 55% 100%, 60% 100%, 60% 0%, 100% 0%, 100% 100%, 1% 100%)'}} 
+            className="hero-mask is-5th"
+          >
+            <div 
+              data-video-urls="./assets/videos/hero video.mov"
+              data-autoplay="true" 
+              data-loop="true" 
+              className="hero-bg-video is-5 w-node-_54226774-b13f-322b-2cc2-5133f5d2f2a8-386a10f1 w-background-video w-background-video-atom"
+            >
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                style={{}}
+                data-object-fit="cover"
+              >
+                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
+          <div 
+            style={{clipPath: 'polygon(0% 0%, 17% 0%, 22% 100%, 28% 100%, 26% 0%, 46% 0%, 55% 100%, 60% 100%, 60% 0%, 100% 0%, 100% 100%, 1% 100%)'}} 
+            className="hero-mask is-6th"
+          >
+            <div 
+              data-video-urls="./assets/videos/hero video.mov"
+              data-autoplay="true" 
+              data-loop="true" 
+              className="hero-bg-video is-6 w-node-_54226774-b13f-322b-2cc2-5133f5d2f2a8-386a10f1 w-background-video w-background-video-atom"
+            >
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                style={{}}
+                data-object-fit="cover"
+              >
+                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
+          <div 
+            style={{clipPath: 'polygon(0% 0%, 17% 0%, 22% 100%, 28% 100%, 26% 0%, 46% 0%, 55% 100%, 60% 100%, 60% 0%, 100% 0%, 100% 100%, 1% 100%)'}} 
+            className="hero-mask is-7th"
+          >
+            <div 
+              data-video-urls="./assets/videos/hero video.mov"
+              data-autoplay="true" 
+              data-loop="true" 
+              className="hero-bg-video is-7 w-node-_54226774-b13f-322b-2cc2-5133f5d2f2a8-386a10f1 w-background-video w-background-video-atom"
+            >
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                style={{}}
+                data-object-fit="cover"
+              >
+                <source src="./assets/videos/hero video.mov" type="video/mp4" />
               </video>
             </div>
           </div>

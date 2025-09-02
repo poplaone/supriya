@@ -7,40 +7,35 @@ const FeaturedProjects = () => {
       title: "Wild Blueberry",
       client: "Grand Bleu",
       type: "Corporate Film",
-      image: "./assets/images/684333e1b1546aba5cd6539c_logo-positionnement-p-1080.jpg",
-      video: "https://player.vimeo.com/progressive_redirect/playback/1068143072/rendition/1080p/file.mp4?loc=external&log_user=0&signature=a6396088cbc10d35e776dd7e08a30cd77560869268c51eae72279a7af89b9b80"
+      video: "./assets/videos/video 1.mov"
     },
     {
       id: 2,
       title: "Genomics",
       client: "Genome Quebec",
       type: "Corporate Film",
-      image: "./assets/images/67c2074411fcc6322982c89c_Screenshot 2024-12-11 at 3.57.55 PM.jpg",
-      video: "https://player.vimeo.com/progressive_redirect/playback/1068143296/rendition/1080p/file.mp4?loc=external&log_user=0&signature=45361f1c168c38505d5268bc534b24c38799b90f005a0dcf990cb1d69f610d7a"
+      video: "./assets/videos/video 2.mov"
     },
     {
       id: 3,
       title: "Best of Summer",
       client: "Club Piscine",
       type: "Advertisement",
-      image: "./assets/images/67d06ea5444a4b0eff17b9b2_Screenshot 2025-03-11 at 12.54.41 PM.jpg",
-      video: "https://player.vimeo.com/progressive_redirect/playback/1068155753/rendition/1080p/file.mp4?loc=external&log_user=0&signature=711cd2613f164f0d38b42a6d98b7140259a65198e0cbad9e6d2ad9adb907540f"
+      video: "./assets/videos/video 3.mov"
     },
     {
       id: 4,
       title: "Meeting",
       client: "Young Entrepreneurs Day",
       type: "Brand Content",
-      image: "./assets/images/67c22305b25be17871923aef_Screenshot 2024-12-11 at 3.24.23 PM.jpg",
-      video: "https://player.vimeo.com/progressive_redirect/playback/1068143135/rendition/1080p/file.mp4?loc=external&log_user=0&signature=abdc701b62153e9c8dbb6b85bb14d8923c40ce6ae5be190bc090f62abc6e6d9b"
+      video: "./assets/videos/video 4.mov"
     },
     {
       id: 5,
       title: "with Marianne Plaisance",
       client: "Onella",
       type: "Brand Content",
-      image: "./assets/images/68308b73104abc7ed61d9579_Screenshot 2025-03-04 at 9.44.47 PM-p-1080.jpg",
-      video: "https://player.vimeo.com/progressive_redirect/playback/1068143230/rendition/1080p/file.mp4?loc=external&log_user=0&signature=05a3e9f1ba18562ca8774f4450a255571a690b008a3cc8192c0d73308f1a1a6d"
+      video: "./assets/videos/video 5.mov"
     }
   ];
 
@@ -97,13 +92,6 @@ const FeaturedProjects = () => {
                 </div>
               </div>
               <div data-video="playpause" className="feat-img-frame">
-                <img 
-                  src={project.image} 
-                  loading="lazy" 
-                  alt={project.title} 
-                  sizes="100vw" 
-                  className="full-img" 
-                />
                 <div className="video-embed w-embed">
                   <div className="video-cover">
                     <video 
