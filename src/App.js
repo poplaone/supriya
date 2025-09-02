@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import FeaturedProjects from './components/FeaturedProjects';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import Slideshow from './components/Slideshow';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         </div>
       </main>
       <Footer />
+      <Slideshow />
     </div>
   );
 }

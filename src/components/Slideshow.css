@@ -1,0 +1,140 @@
+.slides {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  background-color: var(--dark);
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+  grid-auto-rows: 100%;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  place-items: start center;
+  width: 100%;
+  height: 100dvh;
+  display: grid;
+  position: relative;
+}
+
+.slide {
+  flex: none;
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: relative;
+}
+
+.slide--current {
+  z-index: 999;
+  display: flex;
+}
+
+.slide__img {
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0%;
+}
+
+.inverted-slides {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  background-color: var(--dark);
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+  grid-auto-rows: 100%;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  place-items: start center;
+  width: 100%;
+  height: 100dvh;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide_wrap {
+  flex-flow: row;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Desktop styles */
+@media screen and (min-width: 992px) {
+  .slide_wrap {
+    flex-direction: row;
+  }
+  
+  .slides, .inverted-slides {
+    width: 50%;
+    height: 100vh;
+  }
+  
+  .slides {
+    order: 1;
+  }
+  
+  .inverted-slides {
+    order: 2;
+  }
+}
+
+/* Tablet styles */
+@media screen and (max-width: 991px) {
+  .slide_wrap {
+    flex-flow: column;
+    height: 100vh;
+  }
+  
+  .slides {
+    flex: 1;
+    height: auto;
+    width: 100%;
+  }
+  
+  .inverted-slides {
+    flex: 1;
+    height: auto;
+    width: 100%;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 767px) {
+  .slide_wrap {
+    flex-flow: column;
+    height: 100vh;
+  }
+  
+  .slides {
+    flex: 1;
+    height: auto;
+    width: 100%;
+  }
+  
+  .inverted-slides {
+    flex: 1;
+    height: auto;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .slide_wrap {
+    flex-flow: column;
+    height: 100vh;
+  }
+  
+  .slides {
+    flex: 1;
+    height: auto;
+    width: 100%;
+  }
+  
+  .inverted-slides {
+    flex: 1;
+    height: auto;
+    width: 100%;
+  }
+}
