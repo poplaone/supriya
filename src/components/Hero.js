@@ -1,10 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Hero = () => {
   const heroLogoRef = useRef(null);
   const txtRow1Ref = useRef(null);
   const txtRow2Ref = useRef(null);
   const txtRow3Ref = useRef(null);
+  const [videoSrc, setVideoSrc] = useState("./assets/videos/hero video.mov");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 767) {
+        setVideoSrc("./assets/videos/hero video mobile.mov");
+      } else {
+        setVideoSrc("./assets/videos/hero video.mov");
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     // Simple animations for hero elements
@@ -70,7 +86,7 @@ const Hero = () => {
                 style={{}}
                 data-object-fit="cover"
               >
-                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
               </video>
             </div>
           </div>
@@ -93,7 +109,7 @@ const Hero = () => {
                 style={{}}
                 data-object-fit="cover"
               >
-                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
               </video>
             </div>
           </div>
@@ -116,7 +132,7 @@ const Hero = () => {
                 style={{}}
                 data-object-fit="cover"
               >
-                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
               </video>
             </div>
           </div>
@@ -139,7 +155,7 @@ const Hero = () => {
                 style={{}}
                 data-object-fit="cover"
               >
-                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
               </video>
             </div>
           </div>
@@ -162,7 +178,7 @@ const Hero = () => {
                 style={{}}
                 data-object-fit="cover"
               >
-                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
               </video>
             </div>
           </div>
@@ -185,7 +201,7 @@ const Hero = () => {
                 style={{}}
                 data-object-fit="cover"
               >
-                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
               </video>
             </div>
           </div>
@@ -208,7 +224,7 @@ const Hero = () => {
                 style={{}}
                 data-object-fit="cover"
               >
-                <source src="./assets/videos/hero video.mov" type="video/mp4" />
+                <source src={videoSrc} type="video/mp4" />
               </video>
             </div>
           </div>

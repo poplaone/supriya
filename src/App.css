@@ -193,6 +193,12 @@ img {
   opacity: 0.7;
 }
 
+.hero-mask {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
 .hero-mask.is-1st { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 .hero-mask.is-2nd { clip-path: polygon(25% 0, 100% 0, 75% 100%, 0% 100%); }
 .hero-mask.is-3rd { clip-path: polygon(0 25%, 100% 0, 100% 75%, 0 100%); }
@@ -201,15 +207,6 @@ img {
 .hero-mask.is-6th { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
 .hero-mask.is-7th { clip-path: polygon(25% 0, 100% 0, 75% 100%, 0% 100%); }
 
-.hero-mask {
-  position: relative;
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
-  grid-template-columns: 0.7fr 0.37fr 0.5fr;
-  grid-auto-columns: 1fr;
-  width: 100%;
-  flex: 1;
-}
 
 .hero-bg-video {
   object-fit: cover;
@@ -1007,13 +1004,12 @@ img {
 /* Responsive */
 @media screen and (max-width: 991px) {
   .hero-img-grid {
-    grid-template-columns: 1.25fr 0.75fr;
-    min-height: 20rem;
-    max-height: 46vh;
-    margin: 14.3rem 0 6vh 0;
+    grid-template-columns: repeat(4, 1fr);
   }
-  
-  .hero-mask.is-2nd {
+
+  .hero-mask.is-5th,
+  .hero-mask.is-6th,
+  .hero-mask.is-7th {
     display: none;
   }
   
@@ -1100,12 +1096,9 @@ img {
 
 @media screen and (max-width: 767px) {
   .hero-img-grid {
-    grid-template-columns: 1.25fr;
-    min-height: 16rem;
-    max-height: 38vh;
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .hero-mask.is-3rd,
+
   .hero-mask.is-4th,
   .hero-mask.is-5th,
   .hero-mask.is-6th,
@@ -1888,7 +1881,7 @@ img {
   .button-txt {
     padding-left: 1rem;
   }
-  
+
   .cta-bg-shape {
     left: -12rem;
   }
@@ -2008,5 +2001,5 @@ img {
   
   .form-label-2 {
     font-size: 0.7rem;
-  };
   }
+}
