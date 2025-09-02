@@ -10,24 +10,24 @@ const CTA = () => {
               <h2 className="cta-h">
                 <div className="txt-row is-1">
                   <div className="h-xx-large">
-                    Les <span className="h-xx-large is-inria">histoires</span>
+                    The <span className="h-xx-large is-inria">stories</span>
                   </div>
                 </div>
                 <div className="txt-row is-2">
-                  <div className="h-xx-large">sont partout</div>
+                  <div className="h-xx-large">are everywhere</div>
                 </div>
                 <div className="txt-row is-4">
                   <div className="h-xx-large">
-                    autour de nous<span className="inria-highlight"> </span>
+                    around us<span className="inria-highlight"> </span>
                   </div>
                 </div>
               </h2>
             </div>
             <div className="card-div is-button">
               <div className="cta-p-div">
-                <p className="txt-x-large">On veut vous aider à raconter la vôtre</p>
+                <p className="txt-x-large">We want to help you tell yours</p>
               </div>
-              <a href="/contact" className="button w-inline-block">
+              <a href="/photo" className="button w-inline-block">
                 <div className="button-txt-wrap">
                   <img 
                     src="./assets/6755b0e0df4c47e427a30818_Asset 56.svg" 
@@ -35,7 +35,7 @@ const CTA = () => {
                     alt="" 
                     className="button-icon is-hover" 
                   />
-                  <div className="button-txt">Contactez-nous</div>
+                  <div className="button-txt">Photo Page</div>
                 </div>
                 <img 
                   src="./assets/678f8f9388d068ba378b7c49_Asset 81.svg" 

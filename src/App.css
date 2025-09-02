@@ -1162,10 +1162,7 @@ img {
     max-width: none;
     margin: 0 0 0 auto;
     position: absolute;
-    top: auto;
-    bottom: 0;
-    left: auto;
-    right: 0;
+    inset: auto 0% 0% auto;
   }
   
   .footer-logo-div {
@@ -2140,5 +2137,116 @@ img {
   
   .card-label {
     margin: 0.5rem;
+  }
+}
+
+/* Image Ring Section */
+
+.image-ring-section {
+  width: 100%;
+  padding: 5rem 0;
+  background-color: #161616;
+  color: white;
+}
+
+.image-ring-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.image-ring-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.image-ring-title h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.image-ring-title p {
+  color: #aaa;
+  max-width: 36rem;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.image-ring-wrapper {
+  height: 500px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-ring-container-inner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+
+.image-ring-ring {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: grab;
+}
+
+.image-ring-image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Mobile styles */
+@media screen and (max-width: 767px) {
+  .image-ring-section {
+    padding: 3rem 0;
+  }
+  
+  .image-ring-container {
+    padding: 0 1rem;
+  }
+  
+  .image-ring-title h2 {
+    font-size: 2rem;
+  }
+  
+  .image-ring-wrapper {
+    height: 400px;
+  }
+  
+  .image-ring-title p {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .image-ring-section {
+    padding: 2rem 0;
+  }
+  
+  .image-ring-title {
+    margin-bottom: 2rem;
+  }
+  
+  .image-ring-title h2 {
+    font-size: 1.75rem;
+  }
+  
+  .image-ring-wrapper {
+    height: 350px;
+  }
+  
+  .image-ring-title p {
+    font-size: 0.85rem;
   }
 }

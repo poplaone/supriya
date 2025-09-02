@@ -150,7 +150,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                Votre <span className="inria-highlight">réalité</span>
+                Your <span className="inria-highlight">reality</span>
               </div>
             </div>
             <div className="txt-row is-2">
@@ -161,7 +161,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                façonne
+                shapes
               </div>
             </div>
             <div className="txt-row is-3">
@@ -172,7 +172,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                notre <span className="inria-highlight">créativité</span>
+                our <span className="inria-highlight">creativity</span>
               </div>
             </div>
           </h1>

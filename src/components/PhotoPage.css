@@ -1,0 +1,661 @@
+/* PhotoPage Styles - Matching Site Aesthetic */
+
+.photo-page {
+  width: 100%;
+  background-color: var(--color--black);
+  position: relative;
+}
+
+/* Common Section Styles */
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  background-color: var(--color--black);
+  opacity: 0;
+  transform: translate3d(0, 4rem, 0);
+  transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.photo-section.animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Individual item animations */
+.masonry-item,
+.card-item,
+.hero-photo-mask,
+.stack-layer {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.masonry-item.item-animate-in,
+.card-item.item-animate-in,
+.hero-photo-mask.item-animate-in,
+.stack-layer.item-animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+.photo-section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.photo-section-header h1,
+.photo-section-header h2 {
+  margin-bottom: 1rem;
+}
+
+.photo-section-header p {
+  opacity: 0.7;
+  color: var(--color--blue);
+}
+
+/* Section 1: Masonry Grid Carousel */
+.photo-section--masonry {
+  min-height: 100vh;
+}
+
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: var(--gap--gutters);
+  width: 100%;
+  position: relative;
+}
+
+.masonry-item {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  background-color: var(--color--black-ish);
+  opacity: 0;
+  transform: translate3d(0, 2rem, 0);
+}
+
+.masonry-item.item-animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.masonry-item--1 {
+  grid-row: span 2;
+}
+
+.masonry-item--2 {
+  grid-row: span 1;
+}
+
+.masonry-item--3 {
+  grid-row: span 2;
+}
+
+.masonry-item--4 {
+  grid-row: span 1;
+}
+
+.masonry-item:hover {
+  transform: translate3d(0, -1rem, 0) scale3d(1.02, 1.02, 1);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.3);
+}
+
+.masonry-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.masonry-item:hover .masonry-img {
+  transform: scale3d(1.1, 1.1, 1);
+}
+
+.masonry-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.masonry-item:hover .masonry-overlay {
+  opacity: 1;
+}
+
+.masonry-number {
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--color--gold);
+  letter-spacing: -0.05em;
+}
+
+/* Section 2: Sliding Cards Carousel */
+.photo-section--cards {
+  min-height: 80vh;
+  overflow: hidden;
+}
+
+.cards-carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 2rem;
+  cursor: grab;
+  user-select: none;
+}
+
+.cards-carousel:active {
+  cursor: grabbing;
+}
+
+.cards-track {
+  display: flex;
+  width: max-content;
+}
+
+.card-item {
+  flex: 0 0 25rem;
+  height: 35rem;
+  margin-right: var(--gap--gutters);
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color--black-ish);
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
+  transform: translate3d(0, 2rem, 0);
+  cursor: pointer;
+}
+
+.card-item.item-animate-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.card-item:hover {
+  transform: translate3d(0, -2rem, 0) scale3d(1.05, 1.05, 1);
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.4);
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card-item:hover .card-img {
+  transform: scale3d(1.15, 1.15, 1);
+}
+
+.card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--color--white);
+  letter-spacing: -0.02em;
+}
+
+/* Section 3: Clip-Path Hero Grid */
+.photo-section--hero {
+  min-height: 100vh;
+  position: relative;
+}
+
+.hero-photo-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 0.75fr 1fr;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  width: 100%;
+  height: 60vh;
+  min-height: 35rem;
+  position: relative;
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+.hero-photo-mask {
+  position: relative;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  background-color: var(--color--black-ish);
+  overflow: hidden;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.hero-photo-mask.item-animate-in {
+  opacity: 1;
+}
+
+.hero-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.hero-photo-mask:hover .hero-photo-img {
+  transform: scale3d(1.1, 1.1, 1);
+}
+
+.hero-photo-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: 4rem;
+  height: 4rem;
+}
+
+.photo-icon {
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  transition: all 0.6s ease;
+}
+
+.rotating {
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Section 4: Stacked Layers */
+.photo-section--stack {
+  min-height: 90vh;
+  position: relative;
+}
+
+.stack-carousel {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  min-height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 2000px;
+}
+
+.stack-layer {
+  position: absolute;
+  width: 45rem;
+  height: 30rem;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color--black-ish);
+  transform-style: preserve-3d;
+  transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+  opacity: 0;
+}
+
+.stack-layer.item-animate-in {
+  opacity: 1;
+}
+
+.stack-layer--1 {
+  transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
+  z-index: 4;
+}
+
+.stack-layer--2 {
+  transform: translate3d(0, 1rem, -10rem) rotateX(-5deg) rotateY(-2deg);
+  z-index: 3;
+  opacity: 0.9;
+}
+
+.stack-layer--3 {
+  transform: translate3d(0, 2rem, -20rem) rotateX(-10deg) rotateY(-4deg);
+  z-index: 2;
+  opacity: 0.7;
+}
+
+.stack-layer--4 {
+  transform: translate3d(0, 3rem, -30rem) rotateX(-15deg) rotateY(-6deg);
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.stack-carousel:hover .stack-layer--1 {
+  transform: translate3d(-2rem, -1rem, 10rem) rotateX(5deg) rotateY(10deg);
+}
+
+.stack-carousel:hover .stack-layer--2 {
+  transform: translate3d(1rem, 0, 0) rotateX(0deg) rotateY(-5deg);
+  opacity: 1;
+}
+
+.stack-carousel:hover .stack-layer--3 {
+  transform: translate3d(-1rem, 1rem, -10rem) rotateX(-5deg) rotateY(5deg);
+  opacity: 0.9;
+}
+
+.stack-carousel:hover .stack-layer--4 {
+  transform: translate3d(2rem, 2rem, -20rem) rotateX(-10deg) rotateY(-10deg);
+  opacity: 0.7;
+}
+
+.stack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.stack-layer:hover .stack-img {
+  transform: scale3d(1.1, 1.1, 1);
+}
+
+.stack-number {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--color--gold);
+  opacity: 0.8;
+  text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.05em;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .photo-section-header h1,
+  .photo-section-header h2 {
+    font-size: 2.5rem;
+  }
+
+  .masonry-grid {
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+  }
+
+  .masonry-item--1,
+  .masonry-item--2,
+  .masonry-item--3,
+  .masonry-item--4 {
+    grid-row: span 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .card-item {
+    flex: 0 0 20rem;
+    height: 28rem;
+  }
+
+  .hero-photo-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: 80vh;
+  }
+
+  .hero-photo-mask {
+    clip-path: none !important;
+  }
+
+  .stack-layer {
+    width: 90vw;
+    height: 20rem;
+  }
+
+  .stack-layer--2,
+  .stack-layer--3,
+  .stack-layer--4 {
+    transform: translate3d(0, calc(var(--layer-index) * 1rem), calc(var(--layer-index) * -5rem));
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-section .section-padding {
+    padding: 4rem 1rem;
+  }
+
+  .photo-section-header {
+    margin-bottom: 2rem;
+  }
+
+  .photo-section-header h1,
+  .photo-section-header h2 {
+    font-size: 2rem;
+  }
+
+  .card-item {
+    flex: 0 0 18rem;
+    height: 24rem;
+  }
+
+  .stack-number {
+    font-size: 2rem;
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+/* Loading Animation for Images */
+.masonry-img,
+.card-img,
+.hero-photo-img,
+.stack-img {
+  opacity: 0;
+  animation: imageLoad 0.8s ease-out 0.2s both;
+}
+
+@keyframes imageLoad {
+  0% {
+    opacity: 0;
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Photo Modal Styles */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.photo-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--color--white);
+  font-size: 3rem;
+  cursor: pointer;
+  z-index: 1001;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal-image {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+}
+
+.photo-modal-title {
+  color: var(--color--white);
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .photo-section-header h1,
+  .photo-section-header h2 {
+    font-size: 2.5rem;
+  }
+
+  .masonry-grid {
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+  }
+
+  .masonry-item--1,
+  .masonry-item--2,
+  .masonry-item--3,
+  .masonry-item--4 {
+    grid-row: span 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .card-item {
+    flex: 0 0 20rem;
+    height: 28rem;
+  }
+
+  .hero-photo-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: 80vh;
+  }
+
+  .hero-photo-mask {
+    clip-path: none !important;
+  }
+
+  .stack-layer {
+    width: 90vw;
+    height: 20rem;
+  }
+
+  .stack-layer--2,
+  .stack-layer--3,
+  .stack-layer--4 {
+    transform: translate3d(0, calc(var(--layer-index) * 1rem), calc(var(--layer-index) * -5rem));
+  }
+
+  /* Modal Styles for Mobile */
+  .photo-modal {
+    padding: 1rem;
+  }
+
+  .photo-modal-content {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .photo-modal-close {
+    top: -2rem;
+    right: 0;
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .photo-modal-image {
+    max-height: 70vh;
+  }
+
+  .photo-modal-title {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-section .section-padding {
+    padding: 4rem 1rem;
+  }
+
+  .photo-section-header {
+    margin-bottom: 2rem;
+  }
+
+  .photo-section-header h1,
+  .photo-section-header h2 {
+    font-size: 2rem;
+  }
+
+  .card-item {
+    flex: 0 0 18rem;
+    height: 24rem;
+  }
+
+  .stack-number {
+    font-size: 2rem;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  /* Modal Styles for Small Screens */
+  .photo-modal {
+    padding: 0.5rem;
+  }
+
+  .photo-modal-close {
+    top: -1.5rem;
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .photo-modal-image {
+    max-height: 60vh;
+  }
+}
