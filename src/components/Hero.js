@@ -314,7 +314,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                Your <span className="inria-highlight">resonance</span>
+                Quiet blooms
               </div>
             </div>
             <div className="txt-row is-2">
@@ -329,7 +329,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                shapes
+                in spaces
               </div>
             </div>
             <div className="txt-row is-3">
@@ -344,20 +344,20 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                our <span className="inria-highlight">belonging</span>
+                left open
               </div>
             </div>
           </h1>
         </div>
-        {/* CTA: Explore Diary */}
+        {/* CTA: Explore Space */}
         <div className="hero-cta">
           <button
             type="button"
             className="hero-explore-btn"
             onClick={handleExploreClick}
-            aria-label="Explore Diary"
+            aria-label="Explore Space"
           >
-            Explore Diary
+            Explore Space
           </button>
         </div>
       </div>

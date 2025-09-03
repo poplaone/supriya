@@ -31,6 +31,12 @@ const Navbar = () => {
             alt="Tungsten Logo" 
             className="brand-img is-1"
           />
+          {/* Small 3-line audio visualizer overlayed in front of the logo (mobile focused) */}
+          <div className="logo-visualizer" aria-hidden="true">
+            <span className="bar bar-1" />
+            <span className="bar bar-2" />
+            <span className="bar bar-3" />
+          </div>
         </a>
       </div>
       

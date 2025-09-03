@@ -9,6 +9,7 @@ const PhotoPage = () => {
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const section3Ref = useRef(null);
+  const section4Ref = useRef(null);
   
   // Refs for manual swipe functionality
   const carouselRef = useRef(null);
@@ -213,7 +214,7 @@ const PhotoPage = () => {
     }, observerOptions);
 
     // Observe all sections
-    [section1Ref, section2Ref, section3Ref].forEach((ref) => {
+    [section1Ref, section2Ref, section3Ref, section4Ref].forEach((ref) => {
       if (ref.current) {
         observer.observe(ref.current);
       }
@@ -300,6 +301,19 @@ const PhotoPage = () => {
               onTouchEnd={touchEnd}
               onMouseDown={mouseDown}
             >
+              {/* Mobile swipe indicators */}
+              <img
+                className="swipe-indicator swipe-indicator--left"
+                src="./assets/678f8f9388d068ba378b7c49_Asset 81.svg"
+                alt="Swipe left"
+                aria-hidden="true"
+              />
+              <img
+                className="swipe-indicator swipe-indicator--right"
+                src="./assets/678f8f9388d068ba378b7c49_Asset 81.svg"
+                alt="Swipe right"
+                aria-hidden="true"
+              />
               <div 
                 className="cards-track"
                 ref={trackRef}
@@ -370,7 +384,7 @@ const PhotoPage = () => {
       </section>
 
       {/* Section 4: Full Width Image */}
-      <section className="section photo-section photo-section--full-image">
+      <section ref={section4Ref} className="section photo-section photo-section--full-image">
         <div className="section-padding">
           <div className="container">
             <div className="full-image-container">

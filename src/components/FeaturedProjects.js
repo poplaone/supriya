@@ -5,37 +5,37 @@ const FeaturedProjects = () => {
   const projects = [
     {
       id: 1,
-      title: "Resonant Rooms",
-      client: "Independent Study",
-      type: "Short Film",
+      title: "Stillness Within Motion",
+      client: "",
+      type: "",
       video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 1.mp4`
     },
     {
       id: 2,
-      title: "Tidal Memory",
-      client: "Coastal Archive",
-      type: "Art Film",
+      title: "Echoes Of Self",
+      client: "",
+      type: "",
       video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 2.mp4`
     },
     {
       id: 3,
-      title: "Chorus of Light",
-      client: "Aurora Collective",
-      type: "Installation",
+      title: "Moments Between Breaths",
+      client: "",
+      type: "",
       video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 3.mp4`
     },
     {
       id: 4,
-      title: "Breathwork",
-      client: "Open Studio",
-      type: "Experimental",
+      title: "Light Meets Shadow",
+      client: "",
+      type: "",
       video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 4.mp4`
     },
     {
       id: 5,
-      title: "Echoes for One",
-      client: "Private Commission",
-      type: "Sound Essay",
+      title: "Grace In Silence",
+      client: "",
+      type: "",
       video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 5.mp4`
     }
   ];
@@ -80,12 +80,16 @@ const FeaturedProjects = () => {
                 <div className="feat-name-div">
                   <div className="project-name-txt">{project.title}</div>
                 </div>
-                <div className="feat-side-content">
-                  <div className="text-block">{project.client}</div>
-                </div>
-                <div className="feat-side-content">
-                  <div className="text-block">{project.type}</div>
-                </div>
+                {project.client && (
+                  <div className="feat-side-content">
+                    <div className="text-block">{project.client}</div>
+                  </div>
+                )}
+                {project.type && (
+                  <div className="feat-side-content">
+                    <div className="text-block">{project.type}</div>
+                  </div>
+                )}
                 <div className="of-div">
                   <div className="case-number">{index + 1}</div>
                   <div>/</div>

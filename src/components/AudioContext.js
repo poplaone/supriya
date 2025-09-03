@@ -58,6 +58,10 @@ export const AudioProvider = ({ children }) => {
     audioRefs.current.home.preload = 'auto';
     audioRefs.current.photo.preload = 'auto';
     audioRefs.current.background.preload = 'auto';
+    // Use muted autoplay strategy to satisfy browser policies, then unmute shortly after
+    audioRefs.current.home.muted = true;
+    audioRefs.current.photo.muted = true;
+    audioRefs.current.background.muted = true;
     
     // Handle audio loading errors
     audioRefs.current.home.onerror = () => {
@@ -81,6 +85,12 @@ export const AudioProvider = ({ children }) => {
     ) {
       audioRefs.current.background.play().then(() => {
         currentAudios.current.add(audioRefs.current.background);
+        // Unmute shortly after to make it audible
+        setTimeout(() => {
+          if (audioRefs.current.background) {
+            audioRefs.current.background.muted = false;
+          }
+        }, 400);
       }).catch((error) => {
         console.log('Background autoplay prevented by browser policy:', error);
         setupAutoplayUnlock();
@@ -126,6 +136,8 @@ export const AudioProvider = ({ children }) => {
 
     // Play background audio only when explicitly asked
     if (page === 'background' && audioRefs.current.background && !currentAudios.current.has(audioRefs.current.background)) {
+      // ensure unmuted before play
+      audioRefs.current.background.muted = false;
       audioRefs.current.background.play().catch(error => {
         console.log('Background audio play prevented by browser policy:', error);
         setupAutoplayUnlock();
@@ -136,6 +148,8 @@ export const AudioProvider = ({ children }) => {
 
     // Play new page-specific audio
     if (audioRefs.current[page] && page !== 'background') {
+      // ensure unmuted before play
+      audioRefs.current[page].muted = false;
       audioRefs.current[page].play().catch(error => {
         console.log('Audio play prevented by browser policy:', error);
         setupAutoplayUnlock();
@@ -188,6 +202,11 @@ export const AudioProvider = ({ children }) => {
       });
     });
   };
+
+  // Keep the ref pointing to the latest resumeAllAudios implementation
+  useEffect(() => {
+    resumeAllAudiosRef.current = resumeAllAudios;
+  }, [resumeAllAudios]);
 
   const stopAllAudios = () => {
     // Stop all audios

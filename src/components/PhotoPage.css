@@ -159,6 +159,55 @@
   user-select: none;
 }
 
+/* Swipe indicators (mobile) */
+.swipe-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: auto;
+  opacity: 0.7;
+  filter: invert(1) grayscale(1);
+  z-index: 5;
+  pointer-events: none; /* do not block swipe */
+  transition: opacity 200ms ease, transform 300ms ease;
+}
+
+.swipe-indicator--left {
+  left: 0.5rem;
+  transform: translateY(-50%) scaleX(-1); /* flip arrow */
+}
+
+.swipe-indicator--right {
+  right: 0.5rem;
+}
+
+@keyframes nudge-left {
+  0% { transform: translateY(-50%) scaleX(-1) translateX(0); }
+  50% { transform: translateY(-50%) scaleX(-1) translateX(-4px); }
+  100% { transform: translateY(-50%) scaleX(-1) translateX(0); }
+}
+
+@keyframes nudge-right {
+  0% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(4px); }
+  100% { transform: translateY(-50%) translateX(0); }
+}
+
+/* Show indicators only on mobile */
+@media (max-width: 768px) {
+  .swipe-indicator {
+    display: block;
+    opacity: 0.6;
+  }
+  .swipe-indicator--left { animation: nudge-left 1.6s ease-in-out infinite; }
+  .swipe-indicator--right { animation: nudge-right 1.6s ease-in-out infinite; }
+}
+
+@media (min-width: 769px) {
+  .swipe-indicator { display: none; }
+}
+
 .cards-carousel:active {
   cursor: grabbing;
 }

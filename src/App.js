@@ -15,10 +15,7 @@ const AudioController = () => {
   const { playAudio } = useAudio();
   const location = useLocation();
 
-  useEffect(() => {
-    // Play background audio on site visit (runs once when component mounts)
-    playAudio('background');
-  }, [playAudio]);
+  // Removed initial background autoplay; route effect below will handle correct audio per page (home/photo/other)
 
   useEffect(() => {
     // Play appropriate page-specific audio based on current page

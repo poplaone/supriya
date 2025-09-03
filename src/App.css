@@ -289,6 +289,32 @@ img {
   overflow: visible;
 }
 
+/* Hidden by default, shown/animated on mobile */
+.logo-visualizer {
+  position: absolute;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.logo-visualizer .bar {
+  display: block;
+  width: 2px;
+  height: 12px;
+  background-color: var(--color--white);
+  margin: 0 2px;
+  transform-origin: center bottom;
+  opacity: 0.95;
+}
+
+@keyframes equalize {
+  0%, 100% { transform: scaleY(0.45); opacity: 0.85; }
+  50% { transform: scaleY(1.35); opacity: 1; }
+}
+
 .navbar {
   position: absolute;
   top: 0;
@@ -524,6 +550,25 @@ img {
   perspective: 10rem;
   transition-property: none;
   overflow: hidden;
+}
+
+/* Animated CTA buttons */
+.button.is-animated {
+  transition: transform 200ms ease, background-color 200ms ease, color 200ms ease;
+}
+
+.button.is-animated:active {
+  transform: scale(0.98);
+}
+
+.button.is-animated .button-icon.is-default {
+  transition: transform 250ms ease, opacity 200ms ease;
+}
+
+.button.is-animated:hover .button-icon.is-default,
+.button.is-animated:active .button-icon.is-default {
+  transform: translateX(4px);
+  opacity: 1;
 }
 
 .feat-specs-div {
@@ -1112,6 +1157,46 @@ img {
 }
 
 @media screen and (max-width: 767px) {
+  /* Center brand/logo and nudge slightly upward */
+  .navbar-div {
+    justify-content: center;
+    height: 6.5rem;
+  }
+
+  .brand-wrap {
+    margin-left: 0;
+    width: 12rem;
+    height: 1.7rem;
+    position: relative;
+    top: -0.35rem; /* slight upward shift */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .brand.is-main {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Show and animate the 3-bar visualizer on top of the logo */
+  .logo-visualizer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    left: auto;     /* override base inset */
+    right: -10px;   /* push slightly in front of the logo */
+    top: 0;
+    bottom: 0;
+    width: auto;
+    height: 100%;
+  }
+
+  .logo-visualizer .bar-1 { animation: equalize 1.1s ease-in-out infinite; }
+  .logo-visualizer .bar-2 { animation: equalize 1s ease-in-out infinite 0.2s; height: 9px; }
+  .logo-visualizer .bar-3 { animation: equalize 1.2s ease-in-out infinite 0.1s; height: 14px; }
   .hero-img-grid {
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 4px;
@@ -1367,6 +1452,12 @@ img {
   
   .button-icon.is-hover {
     display: none;
+  }
+  /* Ensure the right-arrow is visible on mobile */
+  .button-icon.is-default {
+    display: inline-block;
+    opacity: 1;
+    visibility: visible;
   }
   
   .cta-bg-shape {
