@@ -67,6 +67,21 @@ export const AudioProvider = ({ children }) => {
       console.error('Error loading background audio');
     };
     
+    // Try to auto-start background audio on site load
+    // Only start if NOTHING else is already playing to avoid double audio layers
+    if (
+      audioRefs.current.background &&
+      currentAudios.current.size === 0 &&
+      !currentAudios.current.has(audioRefs.current.background)
+    ) {
+      audioRefs.current.background.play().then(() => {
+        currentAudios.current.add(audioRefs.current.background);
+      }).catch((error) => {
+        console.log('Background autoplay prevented by browser policy:', error);
+        setupAutoplayUnlock();
+      });
+    }
+
     // Cleanup on unmount
     return () => {
       // Stop all playing audios
@@ -76,26 +91,20 @@ export const AudioProvider = ({ children }) => {
       });
       currentAudios.current.clear();
       
-      // Clean up audio elements
-      Object.values(audioRefs.current).forEach(audio => {
-        if (audio) {
-          audio = null;
+      // Clean up audio elements (null out refs correctly by key)
+      Object.keys(audioRefs.current).forEach(key => {
+        if (audioRefs.current[key]) {
+          audioRefs.current[key] = null;
         }
       });
     };
   }, []);
 
   const playAudio = (page) => {
-    // Play background audio if not already playing
-    if (audioRefs.current.background && !currentAudios.current.has(audioRefs.current.background)) {
-      audioRefs.current.background.play().catch(error => {
-        console.log('Background audio play prevented by browser policy:', error);
-        setupAutoplayUnlock();
-      });
-      currentAudios.current.add(audioRefs.current.background);
-    }
-    
-    // Stop all page-specific audios
+    // Ensure background policy: start/resume only when explicitly requested (page === 'background')
+    // Otherwise, we pause background to avoid overlapping with page-specific audio
+
+    // Stop all page-specific audios first
     Object.keys(audioRefs.current).forEach(key => {
       if (key !== 'background' && audioRefs.current[key] && currentAudios.current.has(audioRefs.current[key])) {
         audioRefs.current[key].pause();
@@ -104,6 +113,22 @@ export const AudioProvider = ({ children }) => {
       }
     });
     
+    // If page-specific audio requested, pause background to prevent double audio
+    if (page !== 'background' && audioRefs.current.background && currentAudios.current.has(audioRefs.current.background)) {
+      audioRefs.current.background.pause();
+      currentAudios.current.delete(audioRefs.current.background);
+    }
+
+    // Play background audio only when explicitly asked
+    if (page === 'background' && audioRefs.current.background && !currentAudios.current.has(audioRefs.current.background)) {
+      audioRefs.current.background.play().catch(error => {
+        console.log('Background audio play prevented by browser policy:', error);
+        setupAutoplayUnlock();
+      });
+      currentAudios.current.add(audioRefs.current.background);
+      return; // no page-specific audio in this call
+    }
+
     // Play new page-specific audio
     if (audioRefs.current[page] && page !== 'background') {
       audioRefs.current[page].play().catch(error => {
@@ -115,7 +140,7 @@ export const AudioProvider = ({ children }) => {
   };
 
   const stopAudio = () => {
-    // Stop all page-specific audios but keep background audio playing
+    // Stop all page-specific audios
     Object.keys(audioRefs.current).forEach(key => {
       if (key !== 'background' && audioRefs.current[key] && currentAudios.current.has(audioRefs.current[key])) {
         audioRefs.current[key].pause();
@@ -123,6 +148,15 @@ export const AudioProvider = ({ children }) => {
         currentAudios.current.delete(audioRefs.current[key]);
       }
     });
+
+    // Resume background audio if available and not already playing
+    if (audioRefs.current.background && !currentAudios.current.has(audioRefs.current.background)) {
+      audioRefs.current.background.play().catch(error => {
+        console.log('Background audio play prevented by browser policy:', error);
+        setupAutoplayUnlock();
+      });
+      currentAudios.current.add(audioRefs.current.background);
+    }
   };
 
   const pauseAudio = () => {

@@ -75,7 +75,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover; /* default to cover to avoid side borders */
   background-color: #000;
 }
 
@@ -214,7 +214,7 @@
     max-height: 100svh;
   }
   .hero-video-mobile {
-    object-fit: contain; /* show full video without cropping */
+    object-fit: cover; /* fill width edge-to-edge on mobile */
     width: 100vw;
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
@@ -266,7 +266,7 @@
     max-height: 100svh;
   }
   .hero-video-mobile {
-    object-fit: contain; /* ensure no zoom/crop on very small devices */
+    object-fit: cover; /* fill width edge-to-edge on very small devices */
     width: 100vw;
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
