@@ -63,7 +63,7 @@ const FeaturedProjects = () => {
   }, []);
 
   return (
-    <div className="feat-wrap w-dyn-list">
+    <div id="features" className="feat-wrap w-dyn-list">
       <div role="list" className="feat-list w-dyn-items">
         {projects.map((project, index) => (
           <div 

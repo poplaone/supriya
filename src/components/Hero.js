@@ -11,6 +11,14 @@ const Hero = () => {
   const [preferredFormat, setPreferredFormat] = useState('mp4'); // Default to mp4
   const [isMounted, setIsMounted] = useState(true);
 
+  // Scroll to features section
+  const handleExploreClick = () => {
+    const el = document.getElementById('features');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   // Set mounted state
   useEffect(() => {
     setIsMounted(true);
@@ -373,6 +381,17 @@ const Hero = () => {
               </div>
             </div>
           </h1>
+        </div>
+        {/* CTA: Explore Diary */}
+        <div className="hero-cta">
+          <button
+            type="button"
+            className="hero-explore-btn"
+            onClick={handleExploreClick}
+            aria-label="Explore Diary"
+          >
+            Explore Diary
+          </button>
         </div>
       </div>
     </section>

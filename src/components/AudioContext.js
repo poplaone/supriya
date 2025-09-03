@@ -167,7 +167,16 @@ export const AudioProvider = ({ children }) => {
   };
 
   const resumeAllAudios = () => {
-    // Resume all audios
+    // Ensure background starts if it wasn't added due to autoplay block
+    if (audioRefs.current.background && !currentAudios.current.has(audioRefs.current.background)) {
+      audioRefs.current.background.play().then(() => {
+        currentAudios.current.add(audioRefs.current.background);
+      }).catch(error => {
+        console.log('Background audio play prevented by browser policy (resume):', error);
+      });
+    }
+
+    // Resume all currently tracked audios
     currentAudios.current.forEach(audio => {
       audio.play().catch(error => {
         console.log('Audio play prevented by browser policy:', error);
