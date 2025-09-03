@@ -1,0 +1,249 @@
+
+.section.is-hero {
+  min-height: auto;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.hero-scroll-trigger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.section-padding.is-hero {
+  min-height: auto;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.hero-logo {
+  position: relative;
+  width: 100%;
+  margin-bottom: -6rem;
+  z-index: 22;
+  opacity: 0;
+  transform: translate3d(0, 6rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero-logo-img {
+  width: 100%;
+  position: relative;
+  z-index: 50;
+}
+
+
+.hero-img-grid {
+  display: grid;
+  grid-column-gap: 12px;
+  grid-row-gap: 12px;
+  width: 100%;
+  height: auto;
+  min-height: auto;
+  margin: 2rem 0 1rem 0;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  opacity: 0.7;
+  aspect-ratio: 16 / 9;
+}
+
+.hero-bg-video {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+}
+
+/* Mobile video wrapper with 16:9 aspect ratio */
+.hero-video-wrapper {
+  width: 100%;
+  margin: 1rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  opacity: 0.7;
+}
+
+.hero-video-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-mask {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+.hero-bg-video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-icon-div {
+  margin-top: 0.5rem;
+}
+
+.hero-icon {
+  width: 2.7rem;
+  pointer-events: none;
+  transition: transform 0.8s ease;
+}
+
+.hero-txt-div {
+  margin-top: 2rem;
+  margin-left: auto;
+}
+
+.txt-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+}
+
+.txt-row.is-1,
+.txt-row.is-2,
+.txt-row.is-3 {
+  transition: transform 0.8s ease;
+}
+
+.h-xx-large {
+  letter-spacing: -0.04rem;
+  text-transform: uppercase;
+  text-wrap: balance;
+  font-size: 4rem;
+  font-weight: 300;
+  line-height: 1.02;
+  transition: transform 0.8s ease;
+}
+
+.inria-highlight {
+  letter-spacing: -0.2rem;
+  text-transform: none;
+  font-family: 'Georgia', serif;
+  font-size: 1.05em;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .hero-img-grid {
+    margin: 1.5rem 0 1rem 0;
+  }
+  .hero-icon {
+    width: 2rem;
+  }
+  .hero-txt-div {
+    margin-bottom: 0;
+  }
+  .hero-icon-div {
+    margin-right: auto;
+    position: absolute;
+    inset: auto 0% 0% auto;
+    transform: translate(0, 100%);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .hero-img-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 4px;
+    grid-row-gap: 4px;
+    height: 30vh;
+    min-height: 150px;
+    margin: 1rem 0 0.5rem 0;
+  }
+  .hero-video-wrapper {
+    margin: 1rem 0 0.5rem 0;
+  }
+  .hero-video-container {
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+  .h-xx-large {
+    font-size: 2.2rem;
+  }
+  .hero-icon {
+    width: 1.8rem;
+  }
+  .hero-txt-div {
+    margin-bottom: 1rem;
+  }
+  .hero-icon-div {
+    margin-right: auto;
+    position: absolute;
+    inset: auto 0% 0% auto;
+    transform: translate(0, 100%);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .hero-img-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    height: 25vh;
+    min-height: 120px;
+    margin: 0.5rem 0 0.25rem 0;
+  }
+  .hero-video-wrapper {
+    margin: 0.5rem 0 0.25rem 0;
+  }
+  .hero-video-container {
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+  .h-xx-large {
+    font-size: 2rem;
+  }
+  .hero-icon {
+    width: 1.5rem;
+  }
+  .hero-txt-div {
+    margin-top: 4rem;
+    margin-left: auto;
+  }
+  .hero-icon-div {
+    margin-right: auto;
+    position: absolute;
+    inset: 0% auto auto 0%;
+    transform: translate(-108%);
+  }
+}

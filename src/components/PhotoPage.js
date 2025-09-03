@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './PhotoPage.css';
+import { useAudio } from './AudioContext';
 
 const PhotoPage = () => {
+  const { playAudio } = useAudio();
+  
   // Animation refs for scroll-triggered animations
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
@@ -18,11 +21,21 @@ const PhotoPage = () => {
   const [startY, setStartY] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [prevTranslateX, setPrevTranslateX] = useState(0);
-  const [animationID, setAnimationID] = useState(null);
+  // Removed unused animationID state
   
   // Modal state for photo popup
   const [modalImage, setModalImage] = useState(null);
   const [modalTitle, setModalTitle] = useState('');
+
+  // Play photo page audio when component mounts
+  useEffect(() => {
+    playAudio('photo');
+    
+    // Cleanup function to stop audio when component unmounts
+    return () => {
+      // Audio will be stopped by the AudioController when navigating away
+    };
+  }, [playAudio]);
 
   // Handle photo click
   const handlePhotoClick = (imageSrc, title) => {
@@ -61,11 +74,6 @@ const PhotoPage = () => {
     setStartX(touch.clientX);
     setStartY(touch.clientY);
     setIsDragging(true);
-    
-    // Cancel animation if it's running
-    if (animationID) {
-      cancelAnimationFrame(animationID);
-    }
   };
 
   const touchMove = (e) => {
@@ -121,11 +129,6 @@ const PhotoPage = () => {
   const mouseDown = (e) => {
     setStartX(e.clientX);
     setIsDragging(true);
-    
-    // Cancel animation if it's running
-    if (animationID) {
-      cancelAnimationFrame(animationID);
-    }
     
     // Add event listeners for mouse move and up
     document.addEventListener('mousemove', mouseMove);
