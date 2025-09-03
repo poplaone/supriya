@@ -105,6 +105,7 @@ const Hero = () => {
                 playsInline 
                 className="hero-video-mobile"
                 poster="./assets/videos/hero video mobile only.mov"
+                style={{ objectFit: 'contain' }}
               >
                 <source src="./assets/videos/hero video mobile only.mov" type="video/mp4" />
               </video>
