@@ -790,11 +790,6 @@ img {
   pointer-events: auto;
   padding: 4rem var(--gap--margins) 2rem var(--gap--margins);
   min-height: 100vh;
-  background-image: url('../public/assets/6755aaa69deedf9385182bd4_footer-bg.svg');
-  background-position: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   position: relative;
 }
 
@@ -807,6 +802,28 @@ img {
   flex: 1;
   grid-column-gap: 4rem;
   grid-row-gap: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.footer-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
 }
 
 .footer-column {

@@ -196,9 +196,9 @@ const Hero = () => {
                     console.log('Mobile hero video load started');
                   }}
                 >
+                  {/* Always use the MP4 for mobile hero */}
                   <source src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video mobile only.mp4`} type="video/mp4" />
-                  <source src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video mobile only.mov`} type="video/quicktime" />
-                  Your browser does not support the video tag. Using image fallback.
+                  Your browser does not support the video tag.
                 </video>
               )}
             </div>

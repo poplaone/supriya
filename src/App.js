@@ -11,24 +11,24 @@ import { AudioProvider, useAudio } from './components/AudioContext';
 
 // Component to handle audio playback based on current route
 const AudioController = () => {
-  const { playAudio, stopAudio } = useAudio();
+  const { playAudio } = useAudio();
   const location = useLocation();
 
   useEffect(() => {
-    // Play appropriate audio based on current page
+    // Play background audio on site visit (runs once when component mounts)
+    playAudio('background');
+  }, [playAudio]);
+
+  useEffect(() => {
+    // Play appropriate page-specific audio based on current page
     if (location.pathname === '/') {
       playAudio('home');
     } else if (location.pathname === '/photo') {
       playAudio('photo');
     } else {
-      stopAudio();
+      playAudio('background'); // Just play background audio on other pages
     }
-
-    // Cleanup when component unmounts or location changes
-    return () => {
-      // Audio will be stopped when new page audio starts
-    };
-  }, [location, playAudio, stopAudio]);
+  }, [location, playAudio]);
 
   return null;
 };

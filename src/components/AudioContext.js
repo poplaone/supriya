@@ -13,10 +13,11 @@ export const useAudio = () => {
 export const AudioProvider = ({ children }) => {
   const audioRefs = useRef({
     home: null,
-    photo: null
+    photo: null,
+    background: null
   });
   
-  const currentAudio = useRef(null);
+  const currentAudios = useRef(new Set()); // Use a Set to track multiple playing audios
   const unlockAttached = useRef(false);
 
   // Attach a one-time user-interaction handler to unlock autoplay
@@ -25,7 +26,7 @@ export const AudioProvider = ({ children }) => {
     unlockAttached.current = true;
 
     const resume = () => {
-      resumeAudio();
+      resumeAllAudios();
     };
 
     // Use once:true so listeners remove themselves automatically
@@ -40,14 +41,18 @@ export const AudioProvider = ({ children }) => {
     const baseUrl = process.env.PUBLIC_URL || '';
     audioRefs.current.home = new Audio(`${baseUrl}/assets/music/video page audio.mp3`);
     audioRefs.current.photo = new Audio(`${baseUrl}/assets/music/photo page audio.mp3`);
+    audioRefs.current.background = new Audio(`${baseUrl}/assets/music/audio.mp3`);
     
     // Set properties for better user experience
     audioRefs.current.home.loop = true;
     audioRefs.current.photo.loop = true;
+    audioRefs.current.background.loop = true;
     audioRefs.current.home.volume = 0.7;
     audioRefs.current.photo.volume = 0.7;
+    audioRefs.current.background.volume = 0.5;
     audioRefs.current.home.preload = 'auto';
     audioRefs.current.photo.preload = 'auto';
+    audioRefs.current.background.preload = 'auto';
     
     // Handle audio loading errors
     audioRefs.current.home.onerror = () => {
@@ -58,60 +63,95 @@ export const AudioProvider = ({ children }) => {
       console.error('Error loading photo page audio');
     };
     
+    audioRefs.current.background.onerror = () => {
+      console.error('Error loading background audio');
+    };
+    
     // Cleanup on unmount
     return () => {
-      if (audioRefs.current.home) {
-        audioRefs.current.home.pause();
-        audioRefs.current.home = null;
-      }
-      if (audioRefs.current.photo) {
-        audioRefs.current.photo.pause();
-        audioRefs.current.photo = null;
-      }
+      // Stop all playing audios
+      currentAudios.current.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+      currentAudios.current.clear();
+      
+      // Clean up audio elements
+      Object.values(audioRefs.current).forEach(audio => {
+        if (audio) {
+          audio = null;
+        }
+      });
     };
   }, []);
 
   const playAudio = (page) => {
-    // Stop current audio if playing
-    if (currentAudio.current) {
-      currentAudio.current.pause();
-      currentAudio.current.currentTime = 0;
+    // Play background audio if not already playing
+    if (audioRefs.current.background && !currentAudios.current.has(audioRefs.current.background)) {
+      audioRefs.current.background.play().catch(error => {
+        console.log('Background audio play prevented by browser policy:', error);
+        setupAutoplayUnlock();
+      });
+      currentAudios.current.add(audioRefs.current.background);
     }
     
-    // Play new audio
-    if (audioRefs.current[page]) {
-      currentAudio.current = audioRefs.current[page];
+    // Stop all page-specific audios
+    Object.keys(audioRefs.current).forEach(key => {
+      if (key !== 'background' && audioRefs.current[key] && currentAudios.current.has(audioRefs.current[key])) {
+        audioRefs.current[key].pause();
+        audioRefs.current[key].currentTime = 0;
+        currentAudios.current.delete(audioRefs.current[key]);
+      }
+    });
+    
+    // Play new page-specific audio
+    if (audioRefs.current[page] && page !== 'background') {
       audioRefs.current[page].play().catch(error => {
         console.log('Audio play prevented by browser policy:', error);
         setupAutoplayUnlock();
       });
+      currentAudios.current.add(audioRefs.current[page]);
     }
   };
 
   const stopAudio = () => {
-    if (currentAudio.current) {
-      currentAudio.current.pause();
-      currentAudio.current.currentTime = 0;
-      currentAudio.current = null;
-    }
+    // Stop all page-specific audios but keep background audio playing
+    Object.keys(audioRefs.current).forEach(key => {
+      if (key !== 'background' && audioRefs.current[key] && currentAudios.current.has(audioRefs.current[key])) {
+        audioRefs.current[key].pause();
+        audioRefs.current[key].currentTime = 0;
+        currentAudios.current.delete(audioRefs.current[key]);
+      }
+    });
   };
 
   const pauseAudio = () => {
-    if (currentAudio.current) {
-      currentAudio.current.pause();
-    }
+    // Pause all audios
+    currentAudios.current.forEach(audio => {
+      audio.pause();
+    });
   };
 
-  const resumeAudio = () => {
-    if (currentAudio.current) {
-      currentAudio.current.play().catch(error => {
+  const resumeAllAudios = () => {
+    // Resume all audios
+    currentAudios.current.forEach(audio => {
+      audio.play().catch(error => {
         console.log('Audio play prevented by browser policy:', error);
       });
-    }
+    });
+  };
+
+  const stopAllAudios = () => {
+    // Stop all audios
+    currentAudios.current.forEach(audio => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+    currentAudios.current.clear();
   };
 
   return (
-    <AudioContext.Provider value={{ playAudio, stopAudio, pauseAudio, resumeAudio }}>
+    <AudioContext.Provider value={{ playAudio, stopAudio, pauseAudio, resumeAllAudios, stopAllAudios }}>
       {children}
     </AudioContext.Provider>
   );

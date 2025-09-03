@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import FooterVideo from './FooterVideo';
 
 const Footer = () => {
   useEffect(() => {
@@ -14,6 +15,8 @@ const Footer = () => {
     <section className="section is-footer">
       <div className="section-padding is-footer">
         <div className="container is-footer">
+          {/* Footer video background */}
+          <FooterVideo />
           {/* Empty footer content - will be built further later */}
         </div>
       </div>
