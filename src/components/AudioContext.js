@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef, useEffect } from 'react';
+import React, { createContext, useContext, useRef, useEffect, useCallback } from 'react';
 
 const AudioContext = createContext();
 
@@ -19,24 +19,29 @@ export const AudioProvider = ({ children }) => {
   
   const currentAudios = useRef(new Set()); // Use a Set to track multiple playing audios
   const unlockAttached = useRef(false);
+  const resumeAllAudiosRef = useRef(() => {});
 
   // Attach a one-time user-interaction handler to unlock autoplay
-  const setupAutoplayUnlock = () => {
+  const setupAutoplayUnlock = useCallback(() => {
     if (unlockAttached.current) return;
     unlockAttached.current = true;
 
     const resume = () => {
-      resumeAllAudios();
+      // call through ref to avoid dependency churn
+      resumeAllAudiosRef.current();
     };
 
     // Use once:true so listeners remove themselves automatically
     window.addEventListener('click', resume, { once: true });
     window.addEventListener('touchstart', resume, { once: true, passive: true });
     window.addEventListener('keydown', resume, { once: true });
-  };
+  }, []);
 
   // Initialize audio elements
   useEffect(() => {
+    // snapshot refs/sets used in cleanup to satisfy exhaustive-deps
+    const audiosSnapshot = currentAudios.current;
+    const refsSnapshot = audioRefs.current;
     // Create audio elements using absolute paths from public to work on all routes
     const baseUrl = process.env.PUBLIC_URL || '';
     audioRefs.current.home = new Audio(`${baseUrl}/assets/music/video page audio.mp3`);
@@ -85,20 +90,20 @@ export const AudioProvider = ({ children }) => {
     // Cleanup on unmount
     return () => {
       // Stop all playing audios
-      currentAudios.current.forEach(audio => {
+      audiosSnapshot.forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
       });
-      currentAudios.current.clear();
+      audiosSnapshot.clear();
       
       // Clean up audio elements (null out refs correctly by key)
-      Object.keys(audioRefs.current).forEach(key => {
-        if (audioRefs.current[key]) {
-          audioRefs.current[key] = null;
+      Object.keys(refsSnapshot).forEach(key => {
+        if (refsSnapshot[key]) {
+          refsSnapshot[key] = null;
         }
       });
     };
-  }, []);
+  }, [setupAutoplayUnlock]);
 
   const playAudio = (page) => {
     // Ensure background policy: start/resume only when explicitly requested (page === 'background')

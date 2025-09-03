@@ -8,7 +8,6 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [preferredFormat, setPreferredFormat] = useState('mp4'); // Default to mp4
   const [isMounted, setIsMounted] = useState(true);
 
   // Scroll to features section
@@ -45,22 +44,7 @@ const Hero = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Determine preferred video format based on browser support
-  useEffect(() => {
-    const video = document.createElement('video');
-    const supportsMp4 = video.canPlayType && video.canPlayType('video/mp4') !== '';
-    const supportsMov = video.canPlayType && video.canPlayType('video/quicktime') !== '';
-    
-    // Prefer MP4 for better mobile support
-    if (supportsMp4) {
-      setPreferredFormat('mp4');
-    } else if (supportsMov) {
-      setPreferredFormat('mov');
-    } else {
-      // If no format is supported, we'll show the fallback
-      setVideoError(true);
-    }
-  }, []);
+  // We always use MP4 for mobile hero; no need for format detection.
 
   // Try to play video on mobile devices after user interaction
   useEffect(() => {
