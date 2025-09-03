@@ -1,41 +1,42 @@
 import React, { useEffect } from 'react';
+import VideoSmart from './VideoSmart';
 
 const FeaturedProjects = () => {
   const projects = [
     {
       id: 1,
-      title: "Wild Blueberry",
-      client: "Grand Bleu",
-      type: "Corporate Film",
-      video: "./assets/videos/video 1.mov"
+      title: "Resonant Rooms",
+      client: "Independent Study",
+      type: "Short Film",
+      video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 1.mp4`
     },
     {
       id: 2,
-      title: "Genomics",
-      client: "Genome Quebec",
-      type: "Corporate Film",
-      video: "./assets/videos/video 2.mov"
+      title: "Tidal Memory",
+      client: "Coastal Archive",
+      type: "Art Film",
+      video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 2.mp4`
     },
     {
       id: 3,
-      title: "Best of Summer",
-      client: "Club Piscine",
-      type: "Advertisement",
-      video: "./assets/videos/video 3.mov"
+      title: "Chorus of Light",
+      client: "Aurora Collective",
+      type: "Installation",
+      video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 3.mp4`
     },
     {
       id: 4,
-      title: "Meeting",
-      client: "Young Entrepreneurs Day",
-      type: "Brand Content",
-      video: "./assets/videos/video 4.mov"
+      title: "Breathwork",
+      client: "Open Studio",
+      type: "Experimental",
+      video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 4.mp4`
     },
     {
       id: 5,
-      title: "with Marianne Plaisance",
-      client: "Onella",
-      type: "Brand Content",
-      video: "./assets/videos/video 5.mov"
+      title: "Echoes for One",
+      client: "Private Commission",
+      type: "Sound Essay",
+      video: `${process.env.PUBLIC_URL || ''}/assets/videos/video 5.mp4`
     }
   ];
 
@@ -94,18 +95,13 @@ const FeaturedProjects = () => {
               <div data-video="playpause" className="feat-img-frame">
                 <div className="video-embed w-embed">
                   <div className="video-cover">
-                    <video 
-                      width="100%" 
-                      muted 
-                      autoPlay 
-                      loop 
-                      playsInline 
-                      data-object-fit="cover" 
-                      data-autoplay="true"
-                    >
-                      <source src={project.video} type="video/mp4" />
-                      Your browser doesn't support HTML5 video tag.
-                    </video>
+                    <VideoSmart
+                      src={project.video}
+                      preload="auto"
+                      muted={true}
+                      loop={true}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
               </div>

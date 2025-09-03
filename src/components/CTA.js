@@ -10,23 +10,40 @@ const CTA = () => {
               <h2 className="cta-h">
                 <div className="txt-row is-1">
                   <div className="h-xx-large">
-                    The <span className="h-xx-large is-inria">stories</span>
+                    Where <span className="h-xx-large is-inria">music</span>
                   </div>
                 </div>
                 <div className="txt-row is-2">
-                  <div className="h-xx-large">are everywhere</div>
+                  <div className="h-xx-large">finds its</div>
                 </div>
                 <div className="txt-row is-4">
                   <div className="h-xx-large">
-                    around us<span className="inria-highlight"> </span>
+                    home<span className="inria-highlight"> </span>
                   </div>
                 </div>
               </h2>
             </div>
             <div className="card-div is-button">
               <div className="cta-p-div">
-                <p className="txt-x-large">We want to help you tell yours</p>
+                <p className="txt-x-large">Let’s help you listen deeper</p>
               </div>
+              <a href="/about-space" className="button w-inline-block" style={{ marginBottom: '0.75rem' }}>
+                <div className="button-txt-wrap">
+                  <img 
+                    src="./assets/6755b0e0df4c47e427a30818_Asset 56.svg" 
+                    loading="lazy" 
+                    alt="" 
+                    className="button-icon is-hover" 
+                  />
+                  <div className="button-txt">About Space</div>
+                </div>
+                <img 
+                  src="./assets/678f8f9388d068ba378b7c49_Asset 81.svg" 
+                  loading="lazy" 
+                  alt="" 
+                  className="button-icon is-default" 
+                />
+              </a>
               <a href="/photo" className="button w-inline-block">
                 <div className="button-txt-wrap">
                   <img 
@@ -35,7 +52,7 @@ const CTA = () => {
                     alt="" 
                     className="button-icon is-hover" 
                   />
-                  <div className="button-txt">Photo Page</div>
+                  <div className="button-txt">Photo Journal</div>
                 </div>
                 <img 
                   src="./assets/678f8f9388d068ba378b7c49_Asset 81.svg" 

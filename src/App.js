@@ -8,6 +8,7 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 import PhotoPage from './components/PhotoPage';
 import { AudioProvider, useAudio } from './components/AudioContext';
+import AboutSpace from './components/AboutSpace';
 
 // Component to handle audio playback based on current route
 const AudioController = () => {
@@ -54,6 +55,7 @@ function App() {
               </>
             } />
             <Route path="/photo" element={<PhotoPage />} />
+            <Route path="/about-space" element={<AboutSpace />} />
           </Routes>
         </div>
       </Router>

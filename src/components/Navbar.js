@@ -56,7 +56,7 @@ const Navbar = () => {
                         </g>
                       </svg>
                     </div>
-                    <div className="navlink-txt">À propos</div>
+                    <div className="navlink-txt">About Space</div>
                   </a>
                   <a href="/projets" className="navlink">
                     <div className="navlink-arrow">
@@ -66,7 +66,7 @@ const Navbar = () => {
                         </g>
                       </svg>
                     </div>
-                    <div className="navlink-txt">Projets</div>
+                    <div className="navlink-txt">Works</div>
                   </a>
                   <a href="/blogue" className="navlink">
                     <div className="navlink-arrow">
@@ -76,7 +76,7 @@ const Navbar = () => {
                         </g>
                       </svg>
                     </div>
-                    <div className="navlink-txt">Blogue</div>
+                    <div className="navlink-txt">Journal</div>
                   </a>
                   <a href="/contact" className="navlink">
                     <div className="navlink-arrow">

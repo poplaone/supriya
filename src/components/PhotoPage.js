@@ -9,7 +9,6 @@ const PhotoPage = () => {
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const section3Ref = useRef(null);
-  const section4Ref = useRef(null);
   
   // Refs for manual swipe functionality
   const carouselRef = useRef(null);
@@ -201,7 +200,7 @@ const PhotoPage = () => {
           
           // Animate individual items within sections
           const animateItems = entry.target.querySelectorAll(
-            '.masonry-item, .card-item, .hero-photo-mask, .stack-layer'
+            '.masonry-item, .card-item, .hero-photo-mask'
           );
           
           animateItems.forEach((item, index) => {
@@ -214,7 +213,7 @@ const PhotoPage = () => {
     }, observerOptions);
 
     // Observe all sections
-    [section1Ref, section2Ref, section3Ref, section4Ref].forEach((ref) => {
+    [section1Ref, section2Ref, section3Ref].forEach((ref) => {
       if (ref.current) {
         observer.observe(ref.current);
       }
@@ -244,16 +243,10 @@ const PhotoPage = () => {
       { src: './assets/images/infinite prespectives 10.webp', title: 'Infinite Perspective 10' }
     ],
     section3: [
-      { src: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Alpine Lake' },
-      { src: 'https://images.unsplash.com/photo-1479030160180-b1860951d696?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Canyon View' },
-      { src: 'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Rocky Shore' },
-      { src: 'https://images.unsplash.com/photo-1469474968018-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Golden Hour' }
-    ],
-    section4: [
-      { src: 'https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Tropical Paradise' },
-      { src: 'https://images.unsplash.com/photo-1464822759165-3d0126485e6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Mountain Valley' },
-      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Snowy Peaks' },
-      { src: 'https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Urban Landscape' }
+      { src: './assets/images/Through the lens 1.webp', title: 'Through the Lens 1' },
+      { src: './assets/images/Through the lens 2.webp', title: 'Through the Lens 2' },
+      { src: './assets/images/Through the lens 3.webp', title: 'Through the Lens 3' },
+      { src: './assets/images/Through the lens 4.webp', title: 'Through the Lens 4' }
     ]
   };
 
@@ -376,32 +369,16 @@ const PhotoPage = () => {
         </div>
       </section>
 
-      {/* Section 4: Stacked Layers */}
-      <section ref={section4Ref} className="section photo-section photo-section--stack">
+      {/* Section 4: Full Width Image */}
+      <section className="section photo-section photo-section--full-image">
         <div className="section-padding">
           <div className="container">
-            <div className="photo-section-header">
-              <h2 className="h-xx-large">
-                Layered <span className="inria-highlight">dimensions</span>
-              </h2>
-              <p className="txt-x-large">Depth beyond the surface</p>
-            </div>
-            
-            <div className="stack-carousel">
-              {images.section4.map((image, index) => (
-                <div 
-                  key={index} 
-                  className={`stack-layer stack-layer--${index + 1}`}
-                  onClick={() => handlePhotoClick(image.src, image.title)}
-                  style={{
-                    '--layer-index': index,
-                    zIndex: 4 - index
-                  }}
-                >
-                  <img src={image.src} alt={image.title} className="stack-img" />
-                  <div className="stack-number">{String(index + 1).padStart(2, '0')}</div>
-                </div>
-              ))}
+            <div className="full-image-container">
+              <img 
+                src="/assets/images/photo page footer image.jpeg" 
+                alt="Full Width Display" 
+                className="full-width-image"
+              />
             </div>
           </div>
         </div>

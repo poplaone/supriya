@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Hero.css';
+import VideoSmart from './VideoSmart';
 
 const Hero = () => {
   const txtRow1Ref = useRef(null);
@@ -197,7 +198,7 @@ const Hero = () => {
           </div>
         ) : (
           /* Desktop: Grid layout with clip-path effects */
-          <div style={{width: '80%'}} className="hero-img-grid">
+          <div style={{width: '100%'}} className="hero-img-grid">
             {/* First video mask */}
             <div 
               style={{
@@ -207,28 +208,22 @@ const Hero = () => {
               className="hero-mask is-1st"
             >
               <div 
-                data-poster-url="./assets/videos/hero video.mov"
-                data-video-urls="./assets/videos/hero video.mov"
+                data-poster-url={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
+                data-video-urls={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
                 data-autoplay="true" 
                 data-loop="true" 
                 data-wf-ignore="true" 
                 id="video-1" 
                 className="hero-bg-video w-background-video w-background-video-atom"
               >
-                <video 
-                  id="643c9872-68de-12fe-23ee-90ff82abe4bb-video" 
-                  autoPlay 
-                  loop 
-                  style={{
-                    backgroundImage: 'url("./assets/videos/hero video.mov")'
-                  }}
-                  muted 
-                  playsInline 
-                  data-wf-ignore="true" 
-                  data-object-fit="cover"
-                >
-                  <source src="./assets/videos/hero video.mov" data-wf-ignore="true" type="video/mp4" />
-                </video>
+                <VideoSmart
+                  src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
+                  poster={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
+                  preload="auto"
+                  muted={true}
+                  loop={true}
+                  className="hero-bg-video w-background-video w-background-video-atom"
+                />
               </div>
             </div>
             
@@ -241,28 +236,22 @@ const Hero = () => {
               className="hero-mask is-2nd"
             >
               <div 
-                data-poster-url="./assets/videos/hero video 2.mov"
-                data-video-urls="./assets/videos/hero video 2.mov"
+                data-poster-url={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video 2.mp4`}
+                data-video-urls={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video 2.mp4`}
                 data-autoplay="true" 
                 data-loop="true" 
                 data-wf-ignore="true" 
                 id="video-2" 
                 className="hero-bg-video is-2 w-node-e92ba675-dd4a-f58c-a760-beedcb871fc8-386a10f1 w-background-video w-background-video-atom"
               >
-                <video 
-                  id="e92ba675-dd4a-f58c-a760-beedcb871fc8-video" 
-                  autoPlay 
-                  loop 
-                  style={{
-                    backgroundImage: 'url("./assets/videos/hero video 2.mov")'
-                  }}
-                  muted 
-                  playsInline 
-                  data-wf-ignore="true" 
-                  data-object-fit="cover"
-                >
-                  <source src="./assets/videos/hero video 2.mov" data-wf-ignore="true" type="video/mp4" />
-                </video>
+                <VideoSmart
+                  src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video 2.mp4`}
+                  poster={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video 2.mp4`}
+                  preload="auto"
+                  muted={true}
+                  loop={true}
+                  className="hero-bg-video is-2 w-node-e92ba675-dd4a-f58c-a760-beedcb871fc8-386a10f1 w-background-video w-background-video-atom"
+                />
               </div>
             </div>
             
@@ -275,28 +264,22 @@ const Hero = () => {
               className="hero-mask is-3rd"
             >
               <div 
-                data-poster-url="./assets/videos/hero video.mov"
-                data-video-urls="./assets/videos/hero video.mov"
+                data-poster-url={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
+                data-video-urls={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
                 data-autoplay="true" 
                 data-loop="true" 
                 data-wf-ignore="true" 
                 id="video-3" 
                 className="hero-bg-video is-3 w-node-_54226774-b13f-322b-2cc2-5133f5d2f2a8-386a10f1 w-background-video w-background-video-atom"
               >
-                <video 
-                  id="54226774-b13f-322b-2cc2-5133f5d2f2a8-video" 
-                  autoPlay 
-                  loop 
-                  style={{
-                    backgroundImage: 'url("./assets/videos/hero video.mov")'
-                  }}
-                  muted 
-                  playsInline 
-                  data-wf-ignore="true" 
-                  data-object-fit="cover"
-                >
-                  <source src="./assets/videos/hero video.mov" data-wf-ignore="true" type="video/mp4" />
-                </video>
+                <VideoSmart
+                  src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
+                  poster={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video.mp4`}
+                  preload="auto"
+                  muted={true}
+                  loop={true}
+                  className="hero-bg-video is-3 w-node-_54226774-b13f-322b-2cc2-5133f5d2f2a8-386a10f1 w-background-video w-background-video-atom"
+                />
               </div>
             </div>
           </div>
@@ -305,7 +288,7 @@ const Hero = () => {
         <div className="container">
           <div className="hero-icon-div">
             <img 
-              src="./assets/67464b37c005049376e9c992_Asset 29.svg" 
+              src={`${process.env.PUBLIC_URL || ''}/assets/67464b37c005049376e9c992_Asset 29.svg`} 
               loading="lazy" 
               style={{
                 transform: 'translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(60deg) skew(0, 0)',
@@ -331,7 +314,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                Votre <span className="inria-highlight">réalité</span>
+                Your <span className="inria-highlight">resonance</span>
               </div>
             </div>
             <div className="txt-row is-2">
@@ -346,7 +329,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                façonne
+                shapes
               </div>
             </div>
             <div className="txt-row is-3">
@@ -361,7 +344,7 @@ const Hero = () => {
                 }}
                 className="h-xx-large"
               >
-                notre <span className="inria-highlight">créativité</span>
+                our <span className="inria-highlight">belonging</span>
               </div>
             </div>
           </h1>
