@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="brand-wrap">
         <a href="/" className="brand is-main">
           <img 
-            src="./assets/67462971155525ce2175cd47_Tungsten-Logo.svg" 
+            src="./assets/Generated_Image_September_03__2025_-_1_51PM__1_-removebg-preview (1).png" 
             loading="lazy" 
             alt="Tungsten Logo" 
             className="brand-img is-1"

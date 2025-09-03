@@ -77,7 +77,7 @@ const PhotoPage = () => {
   };
 
   const touchMove = (e) => {
-    if (!isDragging) return;
+    if (!isDragging || !carouselRef.current) return;
     
     const touch = e.touches[0];
     const currentX = touch.clientX;
@@ -100,29 +100,35 @@ const PhotoPage = () => {
   };
 
   const touchEnd = () => {
+    if (!carouselRef.current) return;
+    
     setIsDragging(false);
     
     // Calculate velocity to determine if we should snap
     const movedBy = translateX - prevTranslateX;
     
-    // If moved enough or fast enough, snap to next/previous
-    if (Math.abs(movedBy) > 50 || Math.abs(movedBy) > 10) {
-      // Snap to nearest card
-      const cardWidth = 250 + 32; // card width + margin
-      const cardsToShow = Math.floor(carouselRef.current.offsetWidth / cardWidth);
-      const cardsToMove = Math.round(translateX / cardWidth);
-      
-      // Limit movement to prevent going too far
-      const maxTranslate = 0;
-      const minTranslate = -((images.section2.length * 2 - cardsToShow) * cardWidth);
-      const newTranslate = Math.max(minTranslate, Math.min(maxTranslate, prevTranslateX + (cardsToMove * cardWidth)));
-      
-      setTranslateX(newTranslate);
-      setPrevTranslateX(newTranslate);
-    } else {
-      // Snap back to previous position
-      setTranslateX(prevTranslateX);
-    }
+    // Get actual card width and margin
+    const cardElement = document.querySelector('.card-item');
+    if (!cardElement) return;
+    
+    const cardStyles = window.getComputedStyle(cardElement);
+    const cardWidth = cardElement.offsetWidth;
+    const cardMarginRight = parseInt(cardStyles.marginRight);
+    const totalCardWidth = cardWidth + cardMarginRight;
+    
+    // Calculate how many cards we should move based on drag distance
+    const cardsToMove = Math.round(movedBy / totalCardWidth);
+    
+    // Calculate new position
+    const newTranslate = prevTranslateX + (cardsToMove * totalCardWidth);
+    
+    // Limit movement to prevent going too far
+    const maxTranslate = 0;
+    const minTranslate = -((images.section2.length * 2 - Math.floor(carouselRef.current.offsetWidth / totalCardWidth)) * totalCardWidth);
+    const clampedTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
+    
+    setTranslateX(clampedTranslate);
+    setPrevTranslateX(clampedTranslate);
   };
 
   // Mouse events for desktop
@@ -136,7 +142,7 @@ const PhotoPage = () => {
   };
 
   const mouseMove = (e) => {
-    if (!isDragging) return;
+    if (!isDragging || !carouselRef.current) return;
     
     const currentX = e.clientX;
     const newTranslateX = prevTranslateX + currentX - startX;
@@ -144,6 +150,8 @@ const PhotoPage = () => {
   };
 
   const mouseUp = () => {
+    if (!carouselRef.current) return;
+    
     setIsDragging(false);
     document.removeEventListener('mousemove', mouseMove);
     document.removeEventListener('mouseup', mouseUp);
@@ -151,20 +159,28 @@ const PhotoPage = () => {
     // Snap logic similar to touchEnd
     const movedBy = translateX - prevTranslateX;
     
-    if (Math.abs(movedBy) > 50 || Math.abs(movedBy) > 10) {
-      const cardWidth = 250 + 32; // card width + margin
-      const cardsToShow = Math.floor(carouselRef.current.offsetWidth / cardWidth);
-      const cardsToMove = Math.round(translateX / cardWidth);
-      
-      const maxTranslate = 0;
-      const minTranslate = -((images.section2.length * 2 - cardsToShow) * cardWidth);
-      const newTranslate = Math.max(minTranslate, Math.min(maxTranslate, prevTranslateX + (cardsToMove * cardWidth)));
-      
-      setTranslateX(newTranslate);
-      setPrevTranslateX(newTranslate);
-    } else {
-      setTranslateX(prevTranslateX);
-    }
+    // Get actual card width and margin
+    const cardElement = document.querySelector('.card-item');
+    if (!cardElement) return;
+    
+    const cardStyles = window.getComputedStyle(cardElement);
+    const cardWidth = cardElement.offsetWidth;
+    const cardMarginRight = parseInt(cardStyles.marginRight);
+    const totalCardWidth = cardWidth + cardMarginRight;
+    
+    // Calculate how many cards we should move based on drag distance
+    const cardsToMove = Math.round(movedBy / totalCardWidth);
+    
+    // Calculate new position
+    const newTranslate = prevTranslateX + (cardsToMove * totalCardWidth);
+    
+    // Limit movement to prevent going too far
+    const maxTranslate = 0;
+    const minTranslate = -((images.section2.length * 2 - Math.floor(carouselRef.current.offsetWidth / totalCardWidth)) * totalCardWidth);
+    const clampedTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTranslate));
+    
+    setTranslateX(clampedTranslate);
+    setPrevTranslateX(clampedTranslate);
   };
 
   useEffect(() => {
@@ -210,16 +226,22 @@ const PhotoPage = () => {
   // High-quality images for each section
   const images = {
     section1: [
-      { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Mountain Peak' },
-      { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Forest Path' },
-      { src: 'https://images.unsplash.com/photo-1506152983158-b4a74a01c721?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Desert Dunes' },
-      { src: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Ocean Waves' }
+      { src: './assets/images/visual stories 1.webp', title: 'Visual Story 1' },
+      { src: './assets/images/visual stories 2.webp', title: 'Visual Story 2' },
+      { src: './assets/images/visual stories 3.webp', title: 'Visual Story 3' },
+      { src: './assets/images/visual stories 4.webp', title: 'Visual Story 4' }
     ],
     section2: [
-      { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Coastal Cliffs' },
-      { src: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Northern Lights' },
-      { src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Misty Mountains' },
-      { src: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Autumn Forest' }
+      { src: './assets/images/infinite prespectives 1.webp', title: 'Infinite Perspective 1' },
+      { src: './assets/images/infinite prespectives 2.webp', title: 'Infinite Perspective 2' },
+      { src: './assets/images/infinite prespectives 3.webp', title: 'Infinite Perspective 3' },
+      { src: './assets/images/infinite prespectives 4.webp', title: 'Infinite Perspective 4' },
+      { src: './assets/images/infinite prespectives 5.webp', title: 'Infinite Perspective 5' },
+      { src: './assets/images/infinite prespectives 6.webp', title: 'Infinite Perspective 6' },
+      { src: './assets/images/infinite prespectives 7.webp', title: 'Infinite Perspective 7' },
+      { src: './assets/images/infinite prespectives 8.webp', title: 'Infinite Perspective 8' },
+      { src: './assets/images/infinite prespectives 9.webp', title: 'Infinite Perspective 9' },
+      { src: './assets/images/infinite prespectives 10.webp', title: 'Infinite Perspective 10' }
     ],
     section3: [
       { src: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', title: 'Alpine Lake' },
@@ -301,7 +323,7 @@ const PhotoPage = () => {
                   >
                     <img src={image.src} alt={image.title} className="card-img" />
                     <div className="card-info">
-                      <span className="card-title">Frame {String((index % 4) + 1).padStart(2, '0')}</span>
+                      <span className="card-title">Frame {String((index % images.section2.length) + 1).padStart(2, '0')}</span>
                     </div>
                   </div>
                 ))}

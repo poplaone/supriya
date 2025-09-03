@@ -17,18 +17,37 @@ export const AudioProvider = ({ children }) => {
   });
   
   const currentAudio = useRef(null);
+  const unlockAttached = useRef(false);
+
+  // Attach a one-time user-interaction handler to unlock autoplay
+  const setupAutoplayUnlock = () => {
+    if (unlockAttached.current) return;
+    unlockAttached.current = true;
+
+    const resume = () => {
+      resumeAudio();
+    };
+
+    // Use once:true so listeners remove themselves automatically
+    window.addEventListener('click', resume, { once: true });
+    window.addEventListener('touchstart', resume, { once: true, passive: true });
+    window.addEventListener('keydown', resume, { once: true });
+  };
 
   // Initialize audio elements
   useEffect(() => {
-    // Create audio elements
-    audioRefs.current.home = new Audio('./assets/music/video page audio.mp3');
-    audioRefs.current.photo = new Audio('./assets/music/photo page audio.mp3');
+    // Create audio elements using absolute paths from public to work on all routes
+    const baseUrl = process.env.PUBLIC_URL || '';
+    audioRefs.current.home = new Audio(`${baseUrl}/assets/music/video page audio.mp3`);
+    audioRefs.current.photo = new Audio(`${baseUrl}/assets/music/photo page audio.mp3`);
     
     // Set properties for better user experience
     audioRefs.current.home.loop = true;
     audioRefs.current.photo.loop = true;
     audioRefs.current.home.volume = 0.7;
     audioRefs.current.photo.volume = 0.7;
+    audioRefs.current.home.preload = 'auto';
+    audioRefs.current.photo.preload = 'auto';
     
     // Handle audio loading errors
     audioRefs.current.home.onerror = () => {
@@ -64,6 +83,7 @@ export const AudioProvider = ({ children }) => {
       currentAudio.current = audioRefs.current[page];
       audioRefs.current[page].play().catch(error => {
         console.log('Audio play prevented by browser policy:', error);
+        setupAutoplayUnlock();
       });
     }
   };

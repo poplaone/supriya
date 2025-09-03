@@ -20,28 +20,14 @@
   min-height: auto;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 2rem;
+  padding-top: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
   position: relative;
 }
 
-.hero-logo {
-  position: relative;
-  width: 100%;
-  margin-bottom: -6rem;
-  z-index: 22;
-  opacity: 0;
-  transform: translate3d(0, 6rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
 
-.hero-logo-img {
-  width: 100%;
-  position: relative;
-  z-index: 50;
-}
 
 
 .hero-img-grid {
@@ -51,7 +37,7 @@
   width: 100%;
   height: auto;
   min-height: auto;
-  margin: 2rem 0 1rem 0;
+  margin: 0;
   flex: 1;
   position: relative;
   overflow: hidden;
@@ -69,7 +55,7 @@
 /* Mobile video wrapper with 16:9 aspect ratio */
 .hero-video-wrapper {
   width: 100%;
-  margin: 1rem 0;
+  margin: 0;
   position: relative;
   overflow: hidden;
 }
@@ -91,6 +77,29 @@
   height: 100%;
   object-fit: contain;
   background-color: #000;
+}
+
+.hero-video-mobile-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+.video-error-message {
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
 .hero-mask {
@@ -168,7 +177,7 @@
 
 @media screen and (max-width: 991px) {
   .hero-img-grid {
-    margin: 1.5rem 0 1rem 0;
+    margin: 0;
   }
   .hero-icon {
     width: 2rem;
@@ -191,16 +200,27 @@
     grid-row-gap: 4px;
     height: 30vh;
     min-height: 150px;
-    margin: 1rem 0 0.5rem 0;
+    margin: 0;
   }
   .hero-video-wrapper {
-    margin: 1rem 0 0.5rem 0;
+    margin: 0;
+    width: 100vw;
   }
   .hero-video-container {
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 0; /* use viewport height instead of fixed aspect ratio */
+    height: 100vh; /* fallback */
+    height: 100svh; /* stable viewport height on mobile */
   }
   .hero-video-mobile {
-    object-fit: contain;
+    object-fit: contain; /* show full video without cropping */
+    width: 100vw;
+    height: 100vh; /* fallback */
+    height: 100svh; /* stable viewport height on mobile */
+  }
+  .hero-video-mobile-fallback {
+    width: 100vw;
+    height: 100vh; /* fallback */
+    height: 100svh; /* stable viewport height on mobile */
   }
   .h-xx-large {
     font-size: 2.2rem;
@@ -226,16 +246,27 @@
     grid-row-gap: 2px;
     height: 25vh;
     min-height: 120px;
-    margin: 0.5rem 0 0.25rem 0;
+    margin: 0;
   }
   .hero-video-wrapper {
-    margin: 0.5rem 0 0.25rem 0;
+    margin: 0;
+    width: 100vw;
   }
   .hero-video-container {
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 0; /* use viewport height */
+    height: 100vh; /* fallback */
+    height: 100svh; /* stable viewport height on mobile */
   }
   .hero-video-mobile {
-    object-fit: contain;
+    object-fit: contain; /* ensure no zoom/crop on very small devices */
+    width: 100vw;
+    height: 100vh; /* fallback */
+    height: 100svh; /* stable viewport height on mobile */
+  }
+  .hero-video-mobile-fallback {
+    width: 100vw;
+    height: 100vh; /* fallback */
+    height: 100svh; /* stable viewport height on mobile */
   }
   .h-xx-large {
     font-size: 2rem;

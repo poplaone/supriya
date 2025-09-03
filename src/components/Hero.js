@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './Hero.css';
 
 const Hero = () => {
-  const heroLogoRef = useRef(null);
   const txtRow1Ref = useRef(null);
   const txtRow2Ref = useRef(null);
   const txtRow3Ref = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Check if device is mobile
   useEffect(() => {
@@ -25,18 +27,16 @@ const Hero = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Check browser video support
+  const checkVideoSupport = () => {
+    const video = document.createElement('video');
+    const supportsMp4 = video.canPlayType('video/mp4');
+    const supportsMov = video.canPlayType('video/quicktime');
+    return { supportsMp4, supportsMov };
+  };
+
   useEffect(() => {
     // Simple animations for hero elements
-    if (heroLogoRef.current) {
-      setTimeout(() => {
-        heroLogoRef.current.style.opacity = '1';
-        heroLogoRef.current.style.transform = 'translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)';
-        heroLogoRef.current.style.webkitTransform = 'translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)';
-        heroLogoRef.current.style.mozTransform = 'translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)';
-        heroLogoRef.current.style.msTransform = 'translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)';
-      }, 300);
-    }
-
     if (txtRow1Ref.current) {
       setTimeout(() => {
         txtRow1Ref.current.style.transform = 'translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)';
@@ -74,41 +74,46 @@ const Hero = () => {
     >
       <div data-w-id="c6c07eb6-77ed-4095-e1d3-f8dbb31259f7" className="hero-scroll-trigger"></div>
       <div className="section-padding is-hero">
-        <div 
-          ref={heroLogoRef}
-          style={{
-            opacity: 0,
-            transform: 'translate3d(0, 6rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)',
-            webkitTransform: 'translate3d(0, 6rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)',
-            mozTransform: 'translate3d(0, 6rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)',
-            msTransform: 'translate3d(0, 6rem, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)'
-          }}
-          className="hero-logo"
-        >
-          <img 
-            src="./assets/67462971155525ce2175cd47_Tungsten-Logo.svg" 
-            loading="lazy" 
-            alt="Tungsten Logo" 
-            className="hero-logo-img" 
-          />
-          <div className="studio-txt"></div>
-        </div>
         
         {/* Mobile: Simple full-width video with 16:9 aspect ratio */}
         {isMobile ? (
           <div className="hero-video-wrapper">
             <div className="hero-video-container">
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                className="hero-video-mobile"
-                poster="./assets/videos/hero video mobile only.mov"
-                style={{ objectFit: 'contain' }}
-              >
-                <source src="./assets/videos/hero video mobile only.mov" type="video/mp4" />
-              </video>
+              {videoError ? (
+                <div className="hero-video-mobile-fallback">
+                  <img
+                    className="hero-video-mobile"
+                    alt="mobile hero"
+                    src={`${process.env.PUBLIC_URL || ''}/logo192.png`}
+                    style={{ objectFit: 'contain', backgroundColor: '#000' }}
+                  />
+                  <div className="video-error-message">
+                    Video failed to load. Using image fallback.
+                  </div>
+                </div>
+              ) : (
+                <video 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline 
+                  className="hero-video-mobile"
+                  preload="auto"
+                  poster={`${process.env.PUBLIC_URL || ''}/logo192.png`}
+                  onError={() => {
+                    console.error('Mobile hero video failed to load');
+                    setVideoError(true);
+                  }}
+                  onLoadedData={() => {
+                    console.log('Mobile hero video loaded successfully');
+                    setVideoLoaded(true);
+                  }}
+                >
+                  <source src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video mobile only.mp4`} type="video/mp4" />
+                  <source src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video mobile only.mov`} type="video/quicktime" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
             </div>
           </div>
         ) : (
