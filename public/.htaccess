@@ -1,0 +1,27 @@
+# Enable rewriting
+RewriteEngine On
+RewriteBase /
+
+# Serve existing files and directories as-is
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Otherwise, route everything to index.html (for React SPA routing)
+RewriteRule ^ index.html [L]
+
+# Optional: Force HTTPS (uncomment if your host supports it)
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Optional: Cache static assets (adjust durations as needed)
+# <IfModule mod_expires.c>
+#   ExpiresActive On
+#   ExpiresByType text/css "access plus 7 days"
+#   ExpiresByType application/javascript "access plus 7 days"
+#   ExpiresByType image/png "access plus 30 days"
+#   ExpiresByType image/jpeg "access plus 30 days"
+#   ExpiresByType image/svg+xml "access plus 30 days"
+#   ExpiresByType video/mp4 "access plus 30 days"
+#   ExpiresByType audio/mpeg "access plus 30 days"
+# </IfModule>
