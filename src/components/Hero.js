@@ -8,6 +8,16 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [preferredFormat, setPreferredFormat] = useState('mp4'); // Default to mp4
+  const [isMounted, setIsMounted] = useState(true);
+
+  // Set mounted state
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
 
   // Check if device is mobile
   useEffect(() => {
@@ -27,13 +37,70 @@ const Hero = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Check browser video support
-  const checkVideoSupport = () => {
+  // Determine preferred video format based on browser support
+  useEffect(() => {
     const video = document.createElement('video');
-    const supportsMp4 = video.canPlayType('video/mp4');
-    const supportsMov = video.canPlayType('video/quicktime');
-    return { supportsMp4, supportsMov };
-  };
+    const supportsMp4 = video.canPlayType && video.canPlayType('video/mp4') !== '';
+    const supportsMov = video.canPlayType && video.canPlayType('video/quicktime') !== '';
+    
+    // Prefer MP4 for better mobile support
+    if (supportsMp4) {
+      setPreferredFormat('mp4');
+    } else if (supportsMov) {
+      setPreferredFormat('mov');
+    } else {
+      // If no format is supported, we'll show the fallback
+      setVideoError(true);
+    }
+  }, []);
+
+  // Try to play video on mobile devices after user interaction
+  useEffect(() => {
+    if (isMobile && !videoError && isMounted) {
+      const playVideoOnInteraction = () => {
+        // Try to play the video after user interaction
+        const videoElement = document.querySelector('.hero-video-mobile');
+        if (videoElement && isMounted) {
+          // Ensure the video is not paused before trying to play
+          if (videoElement.paused) {
+            videoElement.play().catch(error => {
+              if (!isMounted) return;
+              console.log('Auto-play prevented by browser:', error);
+              // Set error state if video can't be played
+              setVideoError(true);
+            });
+          }
+        }
+        
+        // Remove event listeners after first interaction
+        document.removeEventListener('touchstart', playVideoOnInteraction);
+        document.removeEventListener('click', playVideoOnInteraction);
+      };
+      
+      // Add event listeners for user interaction
+      document.addEventListener('touchstart', playVideoOnInteraction);
+      document.addEventListener('click', playVideoOnInteraction);
+      
+      // Cleanup
+      return () => {
+        document.removeEventListener('touchstart', playVideoOnInteraction);
+        document.removeEventListener('click', playVideoOnInteraction);
+      };
+    }
+  }, [isMobile, videoError, isMounted]);
+
+  // Fallback timer for video loading
+  useEffect(() => {
+    if (isMobile && !videoError && !videoLoaded && isMounted) {
+      const fallbackTimer = setTimeout(() => {
+        if (!isMounted) return;
+        console.log('Video loading timeout - showing fallback');
+        setVideoError(true);
+      }, 5000); // 5 second timeout
+      
+      return () => clearTimeout(fallbackTimer);
+    }
+  }, [isMobile, videoError, videoLoaded, isMounted]);
 
   useEffect(() => {
     // Simple animations for hero elements
@@ -65,6 +132,23 @@ const Hero = () => {
     }
   }, []);
 
+  // Preload images for fallback
+  useEffect(() => {
+    const preloadImage = (src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = src;
+      });
+    };
+
+    // Preload fallback image
+    preloadImage(`${process.env.PUBLIC_URL || ''}/logo192.png`).catch(() => {
+      console.warn('Fallback image failed to load');
+    });
+  }, []);
+
   return (
     <section 
       tr-scrollflip-scrubend="bottom top" 
@@ -81,14 +165,8 @@ const Hero = () => {
             <div className="hero-video-container">
               {videoError ? (
                 <div className="hero-video-mobile-fallback">
-                  <img
-                    className="hero-video-mobile"
-                    alt="mobile hero"
-                    src={`${process.env.PUBLIC_URL || ''}/logo192.png`}
-                    style={{ objectFit: 'contain', backgroundColor: '#000' }}
-                  />
                   <div className="video-error-message">
-                    Video failed to load. Using image fallback.
+                    Video not supported on this device.
                   </div>
                 </div>
               ) : (
@@ -99,19 +177,28 @@ const Hero = () => {
                   playsInline 
                   className="hero-video-mobile"
                   preload="auto"
-                  poster={`${process.env.PUBLIC_URL || ''}/logo192.png`}
                   onError={() => {
+                    if (!isMounted) return;
                     console.error('Mobile hero video failed to load');
                     setVideoError(true);
                   }}
                   onLoadedData={() => {
+                    if (!isMounted) return;
                     console.log('Mobile hero video loaded successfully');
                     setVideoLoaded(true);
+                  }}
+                  onCanPlay={() => {
+                    if (!isMounted) return;
+                    console.log('Mobile hero video can play');
+                  }}
+                  onLoadStart={() => {
+                    if (!isMounted) return;
+                    console.log('Mobile hero video load started');
                   }}
                 >
                   <source src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video mobile only.mp4`} type="video/mp4" />
                   <source src={`${process.env.PUBLIC_URL || ''}/assets/videos/hero video mobile only.mov`} type="video/quicktime" />
-                  Your browser does not support the video tag.
+                  Your browser does not support the video tag. Using image fallback.
                 </video>
               )}
             </div>

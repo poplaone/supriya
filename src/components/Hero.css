@@ -205,22 +205,28 @@
   .hero-video-wrapper {
     margin: 0;
     width: 100vw;
+    max-width: 100%;
   }
   .hero-video-container {
     padding-bottom: 0; /* use viewport height instead of fixed aspect ratio */
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
+    max-height: 100svh;
   }
   .hero-video-mobile {
     object-fit: contain; /* show full video without cropping */
     width: 100vw;
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
+    max-width: 100%;
+    max-height: 100svh;
   }
   .hero-video-mobile-fallback {
     width: 100vw;
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
+    max-width: 100%;
+    max-height: 100svh;
   }
   .h-xx-large {
     font-size: 2.2rem;
@@ -251,22 +257,28 @@
   .hero-video-wrapper {
     margin: 0;
     width: 100vw;
+    max-width: 100%;
   }
   .hero-video-container {
     padding-bottom: 0; /* use viewport height */
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
+    max-height: 100svh;
   }
   .hero-video-mobile {
     object-fit: contain; /* ensure no zoom/crop on very small devices */
     width: 100vw;
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
+    max-width: 100%;
+    max-height: 100svh;
   }
   .hero-video-mobile-fallback {
     width: 100vw;
     height: 100vh; /* fallback */
     height: 100svh; /* stable viewport height on mobile */
+    max-width: 100%;
+    max-height: 100svh;
   }
   .h-xx-large {
     font-size: 2rem;
