@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import SEO from './SEO';
 import './PhotoPage.css';
 import { useAudio } from './AudioContext';
 
 const PhotoPage = () => {
   const { playAudio } = useAudio();
+  const location = useLocation();
   
   // Animation refs for scroll-triggered animations
   const section1Ref = useRef(null);
@@ -251,8 +254,18 @@ const PhotoPage = () => {
     ]
   };
 
+  // SEO data for the photo page
+  const seoData = {
+    title: "Photo Gallery",
+    description: "Explore our stunning photo gallery featuring visual stories, infinite perspectives, and artistic photography captured through our lens.",
+    keywords: ["photography", "photo gallery", "visual stories", "artistic photography", "creative portfolio"],
+    image: `${process.env.PUBLIC_URL || ''}/assets/images/visual stories 1.webp`,
+    url: `${window.location.origin}${location.pathname}`
+  };
+
   return (
     <div className="photo-page">
+      <SEO {...seoData} />
       {/* Section 1: Masonry Grid Carousel */}
       <section ref={section1Ref} className="section photo-section photo-section--masonry">
         <div className="section-padding">

@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -14,10 +15,21 @@ import AboutSpace from './components/AboutSpace';
 const AudioController = () => {
   const { playAudio } = useAudio();
   const location = useLocation();
-
-  // Removed initial background autoplay; route effect below will handle correct audio per page (home/photo/other)
+  const isInitialRender = React.useRef(true);
+  const hasPlayedInitialAudio = React.useRef(false);
 
   useEffect(() => {
+    // Play home audio immediately on first load if on home page
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      // Play home audio immediately when site loads on home page
+      if (location.pathname === '/') {
+        playAudio('home');
+        hasPlayedInitialAudio.current = true;
+      }
+      return;
+    }
+
     // Play appropriate page-specific audio based on current page
     if (location.pathname === '/') {
       playAudio('home');
@@ -33,30 +45,32 @@ const AudioController = () => {
 
 function App() {
   return (
-    <AudioProvider>
-      <Router>
-        <div className="App">
-          <AudioController />
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Navbar />
-                <main className="main">
-                  <div className="main-content">
-                    <Hero />
-                    <FeaturedProjects />
-                    <CTA />
-                  </div>
-                </main>
-                <Footer />
-              </>
-            } />
-            <Route path="/photo" element={<PhotoPage />} />
-            <Route path="/about-space" element={<AboutSpace />} />
-          </Routes>
-        </div>
-      </Router>
-    </AudioProvider>
+    <HelmetProvider>
+      <AudioProvider>
+        <Router>
+          <div className="App">
+            <AudioController />
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Navbar />
+                  <main className="main">
+                    <div className="main-content">
+                      <Hero />
+                      <FeaturedProjects />
+                      <CTA />
+                    </div>
+                  </main>
+                  <Footer />
+                </>
+              } />
+              <Route path="/photo" element={<PhotoPage />} />
+              <Route path="/about-space" element={<AboutSpace />} />
+            </Routes>
+          </div>
+        </Router>
+      </AudioProvider>
+    </HelmetProvider>
   );
 }
 

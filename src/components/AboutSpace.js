@@ -1,11 +1,24 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+import SEO from './SEO';
 import './AboutSpace.css';
 
 const AboutSpace = () => {
   const baseUrl = process.env.PUBLIC_URL || '';
+  const location = useLocation();
+
+  // SEO data for the about page
+  const seoData = {
+    title: "About Space",
+    description: "Discover the musical journey and philosophy behind our creative space. Learn about our devotion to music as a living presence and art form.",
+    keywords: ["music", "creative space", "musical journey", "artistic philosophy", "tradition", "melody"],
+    image: `${baseUrl}/assets/images/about page 1.jpg`,
+    url: `${window.location.origin}${location.pathname}`
+  };
 
   return (
     <div className="about-page">
+      <SEO {...seoData} />
       {/* Hero Section */}
       <section className="section is-hero about-hero">
         <div className="section-padding is-hero">

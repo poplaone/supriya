@@ -28,7 +28,7 @@ const Navbar = () => {
           <img 
             src="./assets/Generated_Image_September_03__2025_-_1_51PM__1_-removebg-preview (1).png" 
             loading="lazy" 
-            alt="Tungsten Logo" 
+            alt="Space Logo" 
             className="brand-img is-1"
           />
           {/* Small 3-line audio visualizer overlayed in front of the logo (mobile focused) */}
@@ -49,8 +49,8 @@ const Navbar = () => {
                   <a href="tel:514-903-4455" className="txt-link">
                     <div>514-903-4455</div>
                   </a>
-                  <a href="mailto:info@tungstenstudio.ca?subject=Hey%20Tungsten!" className="txt-link">
-                    <div>info@tungstenstudio.ca</div>
+                  <a href="mailto:info@yourdomain.com?subject=Hey%20Space!" className="txt-link">
+                    <div>info@yourdomain.com</div>
                   </a>
                 </div>
                 <div className="nav-wrap">
@@ -98,12 +98,6 @@ const Navbar = () => {
               </div>
               <div className="nav-row is-2nd">
                 <div className="social-wrap">
-                  <a href="https://www.linkedin.com/company/tungstenstudio" target="_blank" rel="noopener noreferrer" className="txt-link">
-                    <div>LinkedIn</div>
-                  </a>
-                  <a href="https://www.instagram.com/tungsten.studio/" target="_blank" rel="noopener noreferrer" className="txt-link">
-                    <div>Instagram</div>
-                  </a>
                 </div>
                 <div className="language-div">
                   <div className="locales-wrap w-locales-list">

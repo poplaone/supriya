@@ -20,6 +20,7 @@ export const AudioProvider = ({ children }) => {
   const currentAudios = useRef(new Set()); // Use a Set to track multiple playing audios
   const unlockAttached = useRef(false);
   const resumeAllAudiosRef = useRef(() => {});
+  const initialHomeAudioPlayed = useRef(false);
 
   // Attach a one-time user-interaction handler to unlock autoplay
   const setupAutoplayUnlock = useCallback(() => {
@@ -76,29 +77,84 @@ export const AudioProvider = ({ children }) => {
       console.error('Error loading background audio');
     };
     
-    // Try to auto-start background audio on site load
-    // Only start if NOTHING else is already playing to avoid double audio layers
-    if (
-      audioRefs.current.background &&
-      currentAudios.current.size === 0 &&
-      !currentAudios.current.has(audioRefs.current.background)
-    ) {
-      audioRefs.current.background.play().then(() => {
-        currentAudios.current.add(audioRefs.current.background);
-        // Unmute shortly after to make it audible
-        setTimeout(() => {
-          if (audioRefs.current.background) {
-            audioRefs.current.background.muted = false;
+    // Try to auto-start home audio on site load with more aggressive approach
+    const tryPlayHomeAudio = () => {
+      if (
+        audioRefs.current.home &&
+        !initialHomeAudioPlayed.current &&
+        currentAudios.current.size === 0
+      ) {
+        // Try multiple approaches to play audio
+        const playPromise = audioRefs.current.home.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            currentAudios.current.add(audioRefs.current.home);
+            initialHomeAudioPlayed.current = true;
+            // Unmute shortly after to make it audible
+            setTimeout(() => {
+              if (audioRefs.current.home) {
+                audioRefs.current.home.muted = false;
+              }
+            }, 300);
+          }).catch((error) => {
+            console.log('Home autoplay prevented by browser policy:', error);
+            setupAutoplayUnlock();
+          });
+        } else {
+          // Fallback for older browsers
+          try {
+            audioRefs.current.home.play();
+            currentAudios.current.add(audioRefs.current.home);
+            initialHomeAudioPlayed.current = true;
+            // Unmute shortly after to make it audible
+            setTimeout(() => {
+              if (audioRefs.current.home) {
+                audioRefs.current.home.muted = false;
+              }
+            }, 300);
+          } catch (error) {
+            console.log('Home autoplay failed:', error);
+            setupAutoplayUnlock();
           }
-        }, 400);
-      }).catch((error) => {
-        console.log('Background autoplay prevented by browser policy:', error);
-        setupAutoplayUnlock();
-      });
-    }
-
+        }
+      }
+    };
+    
+    // Try to play immediately
+    tryPlayHomeAudio();
+    
+    // Also try after a short delay to improve chances
+    const initialPlayTimeout = setTimeout(tryPlayHomeAudio, 500);
+    
+    // Also try after user interaction if needed
+    const userInteractionHandler = () => {
+      if (!initialHomeAudioPlayed.current) {
+        tryPlayHomeAudio();
+      }
+      // Remove event listeners after first successful play
+      if (initialHomeAudioPlayed.current) {
+        document.removeEventListener('click', userInteractionHandler);
+        document.removeEventListener('touchstart', userInteractionHandler);
+        document.removeEventListener('keydown', userInteractionHandler);
+      }
+    };
+    
+    // Add event listeners for user interaction
+    document.addEventListener('click', userInteractionHandler);
+    document.addEventListener('touchstart', userInteractionHandler, { passive: true });
+    document.addEventListener('keydown', userInteractionHandler);
+    
     // Cleanup on unmount
     return () => {
+      // Clear timeout
+      clearTimeout(initialPlayTimeout);
+      
+      // Remove event listeners
+      document.removeEventListener('click', userInteractionHandler);
+      document.removeEventListener('touchstart', userInteractionHandler);
+      document.removeEventListener('keydown', userInteractionHandler);
+      
       // Stop all playing audios
       audiosSnapshot.forEach(audio => {
         audio.pause();
@@ -185,7 +241,7 @@ export const AudioProvider = ({ children }) => {
     });
   };
 
-  const resumeAllAudios = () => {
+  const resumeAllAudios = useCallback(() => {
     // Ensure background starts if it wasn't added due to autoplay block
     if (audioRefs.current.background && !currentAudios.current.has(audioRefs.current.background)) {
       audioRefs.current.background.play().then(() => {
@@ -201,7 +257,7 @@ export const AudioProvider = ({ children }) => {
         console.log('Audio play prevented by browser policy:', error);
       });
     });
-  };
+  }, []);
 
   // Keep the ref pointing to the latest resumeAllAudios implementation
   useEffect(() => {

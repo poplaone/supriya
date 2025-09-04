@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import SEO from './SEO';
 import VideoSmart from './VideoSmart';
 
 const FeaturedProjects = () => {
@@ -40,6 +42,8 @@ const FeaturedProjects = () => {
     }
   ];
 
+  const location = useLocation();
+
   useEffect(() => {
     // Update item counts
     const updateCounts = () => {
@@ -63,57 +67,69 @@ const FeaturedProjects = () => {
     updateCounts();
   }, []);
 
+  // SEO data for the featured projects section
+  const seoData = {
+    title: "Featured Projects",
+    description: "Explore our featured creative projects including Stillness Within Motion, Echoes Of Self, Moments Between Breaths, Light Meets Shadow, and Grace In Silence.",
+    keywords: ["creative projects", "featured work", "visual storytelling", "creative agency", "artistic projects"],
+    image: `${process.env.PUBLIC_URL || ''}/assets/videos/video 1.mp4`,
+    url: `${window.location.origin}${location.pathname}`
+  };
+
   return (
-    <div id="features" className="feat-wrap w-dyn-list">
-      <div role="list" className="feat-list w-dyn-items">
-        {projects.map((project, index) => (
-          <div 
-            key={project.id}
-            role="listitem" 
-            className="feat-item w-dyn-item"
-          >
-            <a 
-              href={`/projets/${project.title.toLowerCase().replace(/\s+/g, '-')}`} 
-              className="feat-link w-inline-block"
+    <>
+      <SEO {...seoData} />
+      <div id="features" className="feat-wrap w-dyn-list">
+        <div role="list" className="feat-list w-dyn-items">
+          {projects.map((project, index) => (
+            <div 
+              key={project.id}
+              role="listitem" 
+              className="feat-item w-dyn-item"
             >
-              <div className="feat-specs-div">
-                <div className="feat-name-div">
-                  <div className="project-name-txt">{project.title}</div>
-                </div>
-                {project.client && (
-                  <div className="feat-side-content">
-                    <div className="text-block">{project.client}</div>
+              <a 
+                href={`/projets/${project.title.toLowerCase().replace(/\s+/g, '-')}`} 
+                className="feat-link w-inline-block"
+              >
+                <div className="feat-specs-div">
+                  <div className="feat-name-div">
+                    <div className="project-name-txt">{project.title}</div>
                   </div>
-                )}
-                {project.type && (
-                  <div className="feat-side-content">
-                    <div className="text-block">{project.type}</div>
-                  </div>
-                )}
-                <div className="of-div">
-                  <div className="case-number">{index + 1}</div>
-                  <div>/</div>
-                  <div className="item-count">{projects.length}</div>
-                </div>
-              </div>
-              <div data-video="playpause" className="feat-img-frame">
-                <div className="video-embed w-embed">
-                  <div className="video-cover">
-                    <VideoSmart
-                      src={project.video}
-                      preload="auto"
-                      muted={true}
-                      loop={true}
-                      className="w-full h-full object-cover"
-                    />
+                  {project.client && (
+                    <div className="feat-side-content">
+                      <div className="text-block">{project.client}</div>
+                    </div>
+                  )}
+                  {project.type && (
+                    <div className="feat-side-content">
+                      <div className="text-block">{project.type}</div>
+                    </div>
+                  )}
+                  <div className="of-div">
+                    <div className="case-number">{index + 1}</div>
+                    <div>/</div>
+                    <div className="item-count">{projects.length}</div>
                   </div>
                 </div>
-              </div>
-            </a>
-          </div>
-        ))}
+                <div data-video="playpause" className="feat-img-frame">
+                  <div className="video-embed w-embed">
+                    <div className="video-cover">
+                      <VideoSmart
+                        src={project.video}
+                        preload="auto"
+                        muted={true}
+                        loop={true}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
