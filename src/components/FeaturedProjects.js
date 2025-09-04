@@ -87,8 +87,7 @@ const FeaturedProjects = () => {
               role="listitem" 
               className="feat-item w-dyn-item"
             >
-              <a 
-                href={`/projets/${project.title.toLowerCase().replace(/\s+/g, '-')}`} 
+              <div 
                 className="feat-link w-inline-block"
               >
                 <div className="feat-specs-div">
@@ -119,12 +118,14 @@ const FeaturedProjects = () => {
                         preload="auto"
                         muted={true}
                         loop={true}
+                        autoPlayOnHover={false}
+                        autoPlayOnClick={false}
                         className="w-full h-full object-cover"
                       />
                     </div>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           ))}
         </div>

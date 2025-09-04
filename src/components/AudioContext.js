@@ -45,8 +45,8 @@ export const AudioProvider = ({ children }) => {
     const refsSnapshot = audioRefs.current;
     // Create audio elements using absolute paths from public to work on all routes
     const baseUrl = process.env.PUBLIC_URL || '';
-    audioRefs.current.home = new Audio(`${baseUrl}/assets/music/video page audio.mp3`);
-    audioRefs.current.photo = new Audio(`${baseUrl}/assets/music/photo page audio.mp3`);
+    audioRefs.current.home = new Audio(`${baseUrl}/assets/music/audio.mp3`);
+    audioRefs.current.photo = new Audio(`${baseUrl}/assets/music/audio.mp3`);
     audioRefs.current.background = new Audio(`${baseUrl}/assets/music/audio.mp3`);
     
     // Set properties for better user experience
