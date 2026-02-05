@@ -9,9 +9,9 @@ const AboutSpace = () => {
 
   // SEO data for the about page
   const seoData = {
-    title: "About Space",
-    description: "Discover the musical journey and philosophy behind our creative space. Learn about our devotion to music as a living presence and art form.",
-    keywords: ["music", "creative space", "musical journey", "artistic philosophy", "tradition", "melody"],
+    title: "About Supriya | Classical Indian Musician from Shimla",
+    description: "Discover the musical journey of Supriya Sharma, a classical Indian music student and Pahadi cultural promoter from Shimla. Exploring the living presence of Raga and tradition.",
+    keywords: ["Supriya Sharma", "Classical Indian Music", "Shimla", "Pahadi Cultural Promoter", "Music Student", "Raga", "Indian Tradition", "Visual Storytelling"],
     image: `${baseUrl}/assets/images/about page 1.jpg`,
     url: `${window.location.origin}${location.pathname}`
   };

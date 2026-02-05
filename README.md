@@ -1,129 +1,131 @@
-# Getting Started with Create React App
+# Supriya - Creative Portfolio Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A stunning, performance-optimized React portfolio website featuring video backgrounds, photo galleries, and smooth animations.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- **Hero Section** - Full-screen video grid with clip-path effects
+- **Photo Gallery** - Masonry grid, sliding carousel, and artistic layouts
+- **About Space** - Elegant content presentation with music theme
+- **Smooth Animations** - GSAP, Framer Motion, and Lenis scroll
+- **Audio Experience** - Ambient background music with page-specific tracks
+- **SEO Optimized** - React Helmet for meta tags and social sharing
 
-### `npm start`
+## 🚀 Quick Start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+# Install dependencies
+npm install --legacy-peer-deps
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Start development server
+npm start
 
-### `npm test`
+# Build for production
+npm run build
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Open [http://localhost:3000](http://localhost:3000) to view in browser.
 
-### `npm run build`
+## 📁 Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+├── components/
+│   ├── Hero.js          # Homepage hero with video grid
+│   ├── PhotoPage.js     # Photo gallery with multiple layouts
+│   ├── AboutSpace.js    # About page with music theme
+│   ├── FeaturedProjects.js # Video showcase sections
+│   ├── VideoSmart.jsx   # Optimized video component
+│   ├── Navbar.js        # Navigation with mobile menu
+│   ├── AudioContext.js  # Audio management
+│   └── SEO.js           # Meta tag management
+├── App.js               # Main app with routing
+└── App.css              # Global styles
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚡ Performance Optimizations
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Video Loading
+- **Lazy loading** for off-screen videos using Intersection Observer
+- **Immediate loading** for hero section videos
+- **GPU acceleration** for smooth playback
 
-### `npm run eject`
+### Image Optimization
+- Native `loading="lazy"` for all gallery images
+- WebP format for smaller file sizes
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### CSS Performance
+- `content-visibility: auto` for off-screen sections
+- `will-change` hints for animated elements
+- `dvh` viewport units for mobile compatibility
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Core Web Vitals
+- Preconnect hints for Google Fonts
+- Optimized font loading with `display=swap`
+- Smooth scroll behavior
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🎥 VideoSmart Component
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Video Performance
-
-We've implemented a custom `VideoSmart` component to optimize video performance across the site. This component follows best practices for video loading and playback.
-
-### Features
-
-1. **Lazy Loading**: Videos are only loaded when they enter the viewport using IntersectionObserver
-2. **Intelligent Preloading**: Uses `preload="none"` by default, with fallback to `preload="metadata"` for older browsers
-3. **Single Playback**: Only one video plays at a time using a simple event bus system
-4. **Hover/Clicl Interaction**: Videos can be configured to play on hover or click
-5. **Accessibility**: Supports keyboard navigation and respects reduced motion preferences
-6. **Performance Monitoring**: Logs IntersectionObserver events in development mode
-
-### Usage
+Optimized video component with lazy loading support:
 
 ```jsx
-import { VideoSmart } from './components';
+import VideoSmart from './components/VideoSmart';
 
+// Immediate loading (for hero/above-fold)
 <VideoSmart
-  src="./path/to/video.mp4"
-  poster="./path/to/poster.jpg"
-  preload="none"
-  autoPlayOnHover={true}
-  autoPlayOnClick={true}
+  src="/assets/videos/hero.mp4"
   muted={true}
   loop={true}
-  controls={false}
-  className="custom-video-class"
+/>
+
+// Lazy loading (for below-fold content)
+<VideoSmart
+  src="/assets/videos/project.mp4"
+  lazy={true}
+  rootMargin="300px"
+  muted={true}
+  loop={true}
 />
 ```
 
-### Encoding Guidelines
-
-For optimal performance, follow these encoding guidelines:
-
-1. **Format**: Use H.264/AAC MP4
-2. **Frame Rate**: Target 24–30 fps
-3. **Resolution**: 
-   - Background loops: 720p or lower
-   - Feature videos: Up to 1080p
-4. **Bitrate**: 1–3 Mbps for most content
-5. **Optimization**: Enable faststart/moov at front (MP4 faststart) so poster shows quickly
-6. **Duration**: Keep loops short (2–6s) for better caching
-7. **Reuse**: Reuse assets across cards when possible to leverage browser cache
-
-### Component Props
+### Props
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| src | string | required | Path to video file |
-| poster | string | optional | Path to poster image |
-| preload | string | "none" | Preload setting ("none", "metadata", "auto") |
-| autoPlayOnHover | boolean | true | Play video on hover |
-| autoPlayOnClick | boolean | true | Play video on click |
-| muted | boolean | true | Mute video by default |
+| src | string | required | Video file path |
+| poster | string | - | Poster image path |
+| lazy | boolean | false | Enable lazy loading |
+| rootMargin | string | "200px" | Intersection observer margin |
+| muted | boolean | true | Mute video |
 | loop | boolean | true | Loop video |
-| controls | boolean | false | Show video controls |
-| className | string | "" | Custom CSS classes |
+| controls | boolean | false | Show controls |
 
-## Learn More
+## 🎨 Video Encoding Guidelines
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For optimal performance:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Format**: H.264/AAC MP4
+- **Frame Rate**: 24-30 fps
+- **Resolution**: 720p for backgrounds, 1080p for features
+- **Bitrate**: 1-3 Mbps
+- **Duration**: 2-6 seconds for loops
+- **Enable**: MP4 faststart for quick poster display
 
-### Code Splitting
+## 📱 Responsive Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Desktop: Full video grid with clip-path effects
+- Tablet: Simplified grid layout
+- Mobile: Single video with dynamic viewport height (`dvh`)
 
-### Analyzing the Bundle Size
+## 🛠️ Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **React 19** - UI framework
+- **React Router 7** - Client-side routing
+- **Framer Motion** - Animations
+- **GSAP** - Advanced animations
+- **Lenis** - Smooth scroll
+- **React Helmet Async** - SEO management
 
-### Making a Progressive Web App
+## 📄 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Private project.
