@@ -6,13 +6,16 @@ const VideoSmart = ({
   className = '',
   muted = true,
   loop = true,
-  preload = 'auto',
+  preload = 'auto', // Default to auto for hero videos
   controls = false,
   style,
+  lazy = false, // Set to true to enable lazy loading
+  rootMargin = '200px',
   ...rest
 }) => {
   const videoRef = useRef(null);
   const [hasError, setHasError] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(!lazy); // Load immediately if not lazy
 
   // Handle error
   const handleError = useCallback(() => {
@@ -20,24 +23,52 @@ const VideoSmart = ({
     console.warn('VideoSmart: Failed to load video', src);
   }, [src]);
 
+  // Intersection Observer for lazy loading (only if lazy=true)
+  useEffect(() => {
+    if (!lazy || shouldLoad) return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoad(true);
+            observer.unobserve(video);
+          }
+        });
+      },
+      {
+        rootMargin,
+        threshold: 0,
+      }
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [lazy, rootMargin, shouldLoad]);
+
   // Set up video element and autoplay
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !src) return;
+    if (!video || !src || !shouldLoad) return;
 
     // Set video properties
     video.src = src;
-    video.poster = poster;
+    if (poster) video.poster = poster;
     video.muted = muted;
     video.loop = loop;
-    video.preload = preload;
+    video.preload = 'auto';
     video.controls = controls;
     video.playsInline = true;
-    video.webkitPlaysInline = true;
-    
+
     // Add event listeners
     video.addEventListener('error', handleError);
-    
+
     // Try to play the video
     const playVideo = async () => {
       try {
@@ -46,23 +77,19 @@ const VideoSmart = ({
         console.warn('VideoSmart: Failed to autoplay video', error);
       }
     };
-    
-    // Play immediately and then retry if needed
-    playVideo();
-    
-    // Set up interval to ensure video keeps playing
-    const interval = setInterval(() => {
-      if (video.paused && !video.ended) {
-        playVideo();
-      }
-    }, 1000);
-    
+
+    // Play when ready
+    if (video.readyState >= 3) {
+      playVideo();
+    } else {
+      video.addEventListener('canplay', playVideo, { once: true });
+    }
+
     // Clean up
     return () => {
       video.removeEventListener('error', handleError);
-      clearInterval(interval);
     };
-  }, [src, poster, muted, loop, preload, controls, handleError]);
+  }, [src, poster, muted, loop, controls, handleError, shouldLoad]);
 
   if (hasError) {
     return (
@@ -78,13 +105,18 @@ const VideoSmart = ({
     <video
       ref={videoRef}
       className={`video-smart ${className}`}
-      preload={preload}
+      preload={shouldLoad ? 'auto' : 'none'}
       muted={muted}
       loop={loop}
       controls={controls}
       playsInline
-      webkitPlaysInline
-      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', ...style }}
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+        ...style
+      }}
       {...rest}
     />
   );

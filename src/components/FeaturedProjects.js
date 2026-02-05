@@ -49,21 +49,21 @@ const FeaturedProjects = () => {
     const updateCounts = () => {
       const items = document.querySelectorAll('.feat-item');
       const itemCount = items.length;
-      
+
       items.forEach((item, index) => {
         const caseNumber = item.querySelector('.case-number');
         const itemCountElement = item.querySelector('.item-count');
-        
+
         if (caseNumber) {
           caseNumber.textContent = index + 1;
         }
-        
+
         if (itemCountElement) {
           itemCountElement.textContent = itemCount;
         }
       });
     };
-    
+
     updateCounts();
   }, []);
 
@@ -82,12 +82,12 @@ const FeaturedProjects = () => {
       <div id="features" className="feat-wrap w-dyn-list">
         <div role="list" className="feat-list w-dyn-items">
           {projects.map((project, index) => (
-            <div 
+            <div
               key={project.id}
-              role="listitem" 
+              role="listitem"
               className="feat-item w-dyn-item"
             >
-              <div 
+              <div
                 className="feat-link w-inline-block"
               >
                 <div className="feat-specs-div">
@@ -115,11 +115,10 @@ const FeaturedProjects = () => {
                     <div className="video-cover">
                       <VideoSmart
                         src={project.video}
-                        preload="auto"
                         muted={true}
                         loop={true}
-                        autoPlayOnHover={false}
-                        autoPlayOnClick={false}
+                        lazy={true}
+                        rootMargin="300px"
                         className="w-full h-full object-cover"
                       />
                     </div>

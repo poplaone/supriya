@@ -62,7 +62,7 @@
     margin: 0 auto;
     max-width: 100%;
   }
-  
+
   .container {
     max-width: 100%;
     margin: 0 auto;
@@ -87,7 +87,8 @@
 .hero-video-container {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
   height: 0;
   overflow: hidden;
   opacity: 0.7;
@@ -99,7 +100,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* default to cover to avoid side borders */
+  object-fit: cover;
+  /* default to cover to avoid side borders */
   background-color: #000;
 }
 
@@ -122,7 +124,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 12; /* above video and text */
+  z-index: 12;
+  /* above video and text */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -134,7 +137,7 @@
   appearance: none;
   background: transparent;
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   padding: 10px 18px;
   border-radius: 999px;
   font-size: 14px;
@@ -146,8 +149,8 @@
 
 .hero-explore-btn:hover,
 .hero-explore-btn:focus {
-  border-color: rgba(255,255,255,0.85);
-  background-color: rgba(255,255,255,0.08);
+  border-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.08);
   outline: none;
 }
 
@@ -165,15 +168,15 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .hero-social-icon:hover,
 .hero-social-icon:focus {
-  border-color: rgba(255,255,255,0.85);
-  background-color: rgba(255,255,255,0.08);
+  border-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.08);
   outline: none;
 }
 
@@ -183,17 +186,17 @@
 }
 
 @media (max-width: 767px) {
-  .hero-cta { 
-    top: 50%; 
+  .hero-cta {
+    top: 50%;
     flex-direction: row;
     gap: 30px;
   }
-  
+
   .hero-explore-btn {
     font-size: 13px;
     padding: 9px 16px;
   }
-  
+
   .hero-social-icons {
     display: flex;
   }
@@ -203,12 +206,12 @@
   .hero-cta {
     gap: 20px;
   }
-  
+
   .hero-social-icon {
     width: 36px;
     height: 36px;
   }
-  
+
   .hero-social-icon svg {
     width: 18px;
     height: 18px;
@@ -258,7 +261,8 @@
   left: 50%;
   top: 24px;
   transform: translateX(-50%);
-  z-index: 6; /* above content */
+  z-index: 6;
+  /* above content */
 }
 
 .hero-icon {
@@ -309,13 +313,20 @@
   .hero-img-grid {
     margin: 0;
   }
+
   .hero-icon {
     width: 2rem;
   }
+
   .hero-txt-div {
     margin-bottom: 0;
   }
-  .hero-icon-div { top: 20px; left: 50%; transform: translateX(-50%); }
+
+  .hero-icon-div {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -327,41 +338,50 @@
     min-height: 150px;
     margin: 0;
   }
+
   .hero-video-wrapper {
     margin: 0;
     width: 100vw;
     max-width: 100%;
   }
+
   .hero-video-container {
-    padding-bottom: 0; /* use viewport height instead of fixed aspect ratio */
-    height: 100vh; /* fallback */
-    height: 100svh; /* stable viewport height on mobile */
-    max-height: 100svh;
+    padding-bottom: 0;
+    height: 100vh;
+    height: 100dvh;
+    /* Dynamic viewport height for mobile browsers */
+    max-height: 100dvh;
   }
+
   .hero-video-mobile {
-    object-fit: cover; /* fill width edge-to-edge on mobile */
+    object-fit: cover;
     width: 100vw;
-    height: 100vh; /* fallback */
-    height: 100svh; /* stable viewport height on mobile */
+    height: 100vh;
+    height: 100dvh;
     max-width: 100%;
-    max-height: 100svh;
+    max-height: 100dvh;
   }
+
   .hero-video-mobile-fallback {
     width: 100vw;
-    height: 100vh; /* fallback */
-    height: 100svh; /* stable viewport height on mobile */
+    height: 100vh;
+    height: 100dvh;
     max-width: 100%;
-    max-height: 100svh;
+    max-height: 100dvh;
   }
+
   .h-xx-large {
     font-size: 2.2rem;
   }
+
   .hero-icon {
     width: 1.8rem;
   }
+
   .hero-txt-div {
     margin-bottom: 1rem;
   }
+
   .hero-icon-div {
     margin-right: auto;
     position: absolute;
@@ -379,46 +399,67 @@
     min-height: 120px;
     margin: 0;
   }
+
   .hero-video-wrapper {
     margin: 0;
     width: 100vw;
     max-width: 100%;
   }
+
   .hero-video-container {
-    padding-bottom: 0; /* use viewport height */
-    height: 100vh; /* fallback */
-    height: 100svh; /* stable viewport height on mobile */
+    padding-bottom: 0;
+    /* use viewport height */
+    height: 100vh;
+    /* fallback */
+    height: 100svh;
+    /* stable viewport height on mobile */
     max-height: 100svh;
   }
+
   .hero-video-mobile {
-    object-fit: cover; /* fill width edge-to-edge on very small devices */
+    object-fit: cover;
+    /* fill width edge-to-edge on very small devices */
     width: 100vw;
-    height: 100vh; /* fallback */
-    height: 100svh; /* stable viewport height on mobile */
+    height: 100vh;
+    /* fallback */
+    height: 100svh;
+    /* stable viewport height on mobile */
     max-width: 100%;
     max-height: 100svh;
   }
+
   .hero-video-mobile-fallback {
     width: 100vw;
-    height: 100vh; /* fallback */
-    height: 100svh; /* stable viewport height on mobile */
+    height: 100vh;
+    /* fallback */
+    height: 100svh;
+    /* stable viewport height on mobile */
     max-width: 100%;
     max-height: 100svh;
   }
+
   .h-xx-large {
     font-size: 2rem;
   }
+
   .hero-icon {
     width: 1.5rem;
   }
+
   .hero-txt-div {
     margin-top: 4rem;
     margin-left: auto;
   }
-  .hero-icon-div { top: 12px; left: 50%; transform: translateX(-50%); }
+
+  .hero-icon-div {
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media screen and (min-width: 1200px) {
+
   .section.is-hero,
   .section-padding.is-hero,
   .hero-img-grid,
@@ -426,7 +467,7 @@
     max-width: 100%;
     margin: 0 auto;
   }
-  
+
   .hero-img-grid {
     grid-column-gap: 16px;
     grid-row-gap: 16px;
